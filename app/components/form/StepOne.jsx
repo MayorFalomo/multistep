@@ -25,11 +25,12 @@ const StepOne = (props) => {
   const [openCalendar, setOpenCalendar] = useState(false);
 
   const handleChange = (e) => {
+    e.preventDefault();
     const { value } = e.target;
     //If the response status is 200 then setFormData to be the value
-    const response = axios
-      .post("urlToCheckFlightNumber", value)
-      .catch((err) => console.log(err));
+    // const response = axios
+    //   .post("urlToCheckFlightNumber", value)
+    //   .catch((err) => console.log(err));
     props?.setFormData({
       ...props?.formData,
       flightNumber: value,
@@ -48,6 +49,7 @@ const StepOne = (props) => {
       m="0 auto"
       height="100%"
       isRequired
+      onSubmit={handleChange}
     >
       <Box>
         <Heading fontSize="40px " colorScheme=" hsl(213, 96%, 18%) ">
@@ -97,8 +99,8 @@ const StepOne = (props) => {
                 padding="8px 15px "
                 width="100% "
                 placeholder={
-                  values
-                    ? `e.g ${moment(values).format("MMM Do YY")}`
+                  props.date
+                    ? `${moment(props.date).format("MMM Do YY")}`
                     : "Enter Date "
                 }
                 _placeholder={{
@@ -107,7 +109,9 @@ const StepOne = (props) => {
                   fontFamily: "Ubuntu",
                 }}
                 onChange={handleChange}
-                // defaultValue={dated ? moment(values).format("MMM Do YY") : ""}
+                defaultValue={
+                  props.date ? moment(values).format("MMM Do YY") : ""
+                }
               />
               <InputRightAddon>
                 <IconButton

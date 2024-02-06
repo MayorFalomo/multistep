@@ -21,6 +21,23 @@ import SuccessPage from "../components/form/SuccessPage";
 
 const formpage = () => {
   const [step, setStep] = useState(1);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [flightNumber, setFlightNumber] = useState("");
+  const [date, setDate] = useState("");
+  const [address, setAddress] = useState("");
+  const [zipCode, setZipCode] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
+  const [formData, setFormData] = useState({
+    name,
+    email,
+    // phone,
+    flightNumber,
+    date,
+    address,
+    zipCode,
+  });
 
   return (
     <div className="app">
@@ -55,7 +72,7 @@ const formpage = () => {
           width="500px"
           maxW="40%"
         >
-          <Stack spacing="20px" p="20px">
+          <Stack spacing="20px" mt="30px" p="20px">
             <Flex alignItems="center" gap="20px">
               <Text
                 border={step == 1 ? "none" : "2px white solid "}
@@ -66,7 +83,9 @@ const formpage = () => {
                 placeContent="center"
                 display="grid"
                 color="white"
+                cursor="pointer"
                 backgroundColor={step == 1 ? "hsl(228, 100%, 84%) " : ""}
+                onClick={() => setStep(1)}
               >
                 {" "}
                 1
@@ -85,7 +104,9 @@ const formpage = () => {
                 color="white"
                 placeContent="center"
                 display="grid"
+                cursor="pointer"
                 backgroundColor={step == 2 ? "hsl(228, 100%, 84%) " : ""}
+                onClick={() => setStep(2)}
               >
                 2{" "}
               </Text>
@@ -103,7 +124,9 @@ const formpage = () => {
                 color="white"
                 placeContent="center"
                 display="grid"
+                cursor="pointer"
                 backgroundColor={step == 3 ? "hsl(228, 100%, 84%) " : ""}
+                onClick={() => setStep(3)}
               >
                 3{" "}
               </Text>
@@ -119,14 +142,16 @@ const formpage = () => {
                 height="40px"
                 borderRadius="50% "
                 color="white"
+                cursor="pointer"
                 placeContent="center"
                 display="grid"
                 backgroundColor={step == 4 ? "hsl(228, 100%, 84%) " : ""}
+                onClick={() => setStep(4)}
               >
                 4{" "}
               </Text>
               <Box display="flex" flexDirection="column" gap="10px">
-                <Heading color="white">Step 4 </Heading>
+                <Heading color="white">Step 5 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
@@ -138,11 +163,13 @@ const formpage = () => {
                 height="40px"
                 borderRadius="50% "
                 color="white"
+                cursor="pointer"
                 placeContent="center"
                 display="grid"
                 backgroundColor={step == 5 ? "hsl(228, 100%, 84%) " : ""}
+                onClick={() => setStep(5)}
               >
-                4{" "}
+                5{" "}
               </Text>
               <Box display="flex" flexDirection="column" gap="10px">
                 <Heading color="white">Step 5 </Heading>
@@ -153,12 +180,42 @@ const formpage = () => {
         </Box>
 
         <Container width="80%" height="100%">
-          {step == 1 ? <StepOne setStep={setStep} /> : ""}
-          {step == 2 && <StepTwo setStep={setStep} />}
-          {step == 3 && <StepThree setStep={setStep} />}
-          {step == 4 && <StepFour setStep={setStep} />}
-          {step == 5 && <StepFive setStep={setStep} />}
-          {step == 6 && <SuccessPage setStep={setStep} />}
+          {step == 1 ? (
+            <StepOne
+              setStep={setStep}
+              flightNumber={flightNumber}
+              date={date}
+              formData={formData}
+              setFormData={setFormData}
+            />
+          ) : (
+            ""
+          )}
+          {step == 2 && (
+            <StepTwo
+              setStep={setStep}
+              name={name}
+              email={email}
+              address={address}
+              setAddress={setAddress}
+              zipCode={zipCode}
+              setZipCode={setZipCode}
+              formData={formData}
+              setFormData={setFormData}
+            />
+          )}
+          {step == 3 && (
+            <StepThree setStep={setStep} setFormData={setFormData} />
+          )}
+          {step == 4 && (
+            <StepFour setStep={setStep} setFormData={setFormData} />
+          )}
+          {step == 5 && (
+            <StepFive setStep={setStep} setFormData={setFormData} />
+          )}
+          {step == 6 && (
+            <SuccessPage setStep={setStep} setFormData={setFormData} />
+          )}
         </Container>
       </Container>
     </div>

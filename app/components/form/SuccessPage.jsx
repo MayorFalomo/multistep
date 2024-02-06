@@ -8,7 +8,6 @@ const SuccessPage = () => {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      border="2px red solid"
       h="100%"
     >
       <Box

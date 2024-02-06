@@ -47,20 +47,7 @@ export default function Home() {
     zipCode,
   });
 
-  const submitForm = async () => {
-    try {
-      const response = axios
-        .post("urlToSubmitFormTo", formData)
-        .catch((err) => console.log(err));
-      // response.status == 200 ? setStep(6) : setAuthMessage(true);
-      setStep(6); //Remove this line later and comment out the line above
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  console.log(formData, "formData");
+  // console.log(formData, "formData");
   return (
     <div className="app">
       <Container overflow="hidden" backgroundColor="black" h="50vh">
@@ -192,7 +179,7 @@ export default function Home() {
                 backgroundColor={step == 5 ? "hsl(228, 100%, 84%) " : ""}
                 onClick={() => setStep(5)}
               >
-                4{" "}
+                5{" "}
               </Text>
               <Box display="flex" flexDirection="column" gap="10px">
                 <Heading color="white">Step 5 </Heading>
@@ -207,9 +194,7 @@ export default function Home() {
             <StepOne
               setStep={setStep}
               flightNumber={flightNumber}
-              // setFlightNumber={setFlightNumber}
               date={date}
-              // setDate={setDate}
               formData={formData}
               setFormData={setFormData}
             />
@@ -239,11 +224,7 @@ export default function Home() {
             <StepFive setStep={setStep} setFormData={setFormData} />
           )}
           {step == 6 && (
-            <SuccessPage
-              setStep={setStep}
-              submitForm={submitForm}
-              setFormData={setFormData}
-            />
+            <SuccessPage setStep={setStep} setFormData={setFormData} />
           )}
         </Container>
       </Container>

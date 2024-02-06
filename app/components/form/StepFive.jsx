@@ -13,6 +13,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 const StepFive = (props) => {
+  const submitForm = () => {
+    try {
+      console.log(props.formData, "response");
+      // const response = await axios
+      //   .post("urlToSubmitFormTo", props.formData)
+      //   .catch((err) => console.log(err));
+      // response.status == 200 ? setStep(6) : setAuthMessage(true);
+      props.setStep(6); //Remove this line later and comment out the line above
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FormControl
       display="flex"
@@ -119,7 +132,7 @@ const StepFive = (props) => {
           border="none"
           outline="none"
           cursor="pointer"
-          onClick={() => props.submitForm()}
+          onClick={submitForm}
         >
           Submit
         </Button>
