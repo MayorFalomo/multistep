@@ -41,7 +41,7 @@ const formpage = () => {
 
   return (
     <div className="app">
-      <Container overflow="hidden" backgroundColor="black" h="50vh">
+      <Container overflow="hidden" backgroundColor="black" h="70vh">
         <Box
           display="flex"
           justifyContent="center"

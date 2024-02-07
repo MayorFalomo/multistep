@@ -20,6 +20,7 @@ import "react-calendar/dist/Calendar.css";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import moment from "moment/moment";
 import axios from "axios";
+import { extendTheme } from "@chakra-ui/react";
 const StepOne = (props) => {
   const [values, onChange] = useState(new Date());
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -38,14 +39,25 @@ const StepOne = (props) => {
     });
   };
 
+  const breakpoints = {
+    base: "0px",
+    sm: "450px",
+    md: "768px",
+    lg: "960px",
+    xl: "1200px",
+    "2xl": "1536px",
+  };
+
+  const theme = extendTheme({ breakpoints });
+
   // console.log(values, "This is value");
   return (
     <FormControl
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      //   border="2px green solid"
-      width="40%"
+      border="2px green solid"
+      width={{ base: "40%", md: "60%", xl: "40%" }}
       m="0 auto"
       height="100%"
       isRequired

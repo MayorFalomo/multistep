@@ -50,7 +50,7 @@ export default function Home() {
   // console.log(formData, "formData");
   return (
     <div className="app">
-      <Container overflow="hidden" backgroundColor="black" h="50vh">
+      <Container overflow="hidden" backgroundColor="black" h="70vh">
         <Box
           display="flex"
           justifyContent="center"
@@ -189,7 +189,7 @@ export default function Home() {
           </Stack>
         </Box>
 
-        <Container width="80%" height="100%">
+        <Container border="2px red solid" width="80%" height="100%">
           {step == 1 ? (
             <StepOne
               setStep={setStep}
