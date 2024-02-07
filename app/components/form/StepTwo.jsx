@@ -87,7 +87,7 @@ const StepTwo = (props) => {
     geocoder.geocode({ location: clickedLocation }, (results, status) => {
       if (status == "OK") {
         if (results[0]) {
-          console.log(results);
+          // console.log(results);
           setAddressInfo(results[0].formatted_address); // Output the formatted address
           // props.setFormData({
           //   ...props.formData,
