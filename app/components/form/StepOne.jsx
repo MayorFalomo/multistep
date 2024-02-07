@@ -91,7 +91,10 @@ const StepOne = (props) => {
       onSubmit={handleChange}
     >
       <Box>
-        <Heading fontSize="40px " colorScheme=" hsl(213, 96%, 18%) ">
+        <Heading
+          fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
+          colorScheme=" hsl(213, 96%, 18%) "
+        >
           Personal Info{" "}
         </Heading>
         <Text m="20px auto" color="hsl(231, 11%, 63%)">
@@ -182,8 +185,8 @@ const StepOne = (props) => {
         <Button
           type="submit"
           color="white"
-          fontSize="20px"
           borderRadius="7px "
+          fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
           backgroundColor="hsl(213, 96%, 18%)"
           padding="10px 20px"
           border="none"

@@ -25,15 +25,24 @@ const SuccessPage = () => {
             alt="img"
           />
         </Box>
-        <Heading fontSize="50px" color="hsl(213, 96%, 18%)">
+        <Heading
+          fontSize={{ base: "30px", md: "35px", lg: "40px", "2xl": "50px " }}
+          color="hsl(213, 96%, 18%)"
+        >
           Thank you!{" "}
         </Heading>
-        <Text fontSize="20px" color="hsl(231, 11%, 63%)">
+        <Text
+          fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+          color="hsl(231, 11%, 63%)"
+        >
           Your information has been submitted successfully!
         </Text>
         <Link href="/">
           {" "}
-          <Text fontSize="18px " colorScheme="hsl(213, 96%, 18%) ">
+          <Text
+            fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+            colorScheme="hsl(213, 96%, 18%) "
+          >
             go to homepage{" "}
           </Text>{" "}
         </Link>

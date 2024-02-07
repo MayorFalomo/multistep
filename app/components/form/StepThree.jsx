@@ -18,14 +18,26 @@ const StepThree = (props) => {
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      //   border="2px green solid"
-      width="40%"
+      // border="2px green solid"
+      width={{ base: "100%", md: "80%", lg: "80%", xl: "80%", "2xl": "100%" }}
+      maxW={{
+        base: "95%",
+        sm: "95%",
+        md: "80%",
+        lg: "90%",
+        xl: "90%",
+        "2xl": "600px",
+      }}
+      // width="40%"
       m="0 auto"
       height="100%"
       isRequired
     >
       <Box>
-        <Heading fontSize="40px " colorScheme=" hsl(213, 96%, 18%) ">
+        <Heading
+          fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
+          colorScheme=" hsl(213, 96%, 18%) "
+        >
           Step Three
         </Heading>
         <Text m="20px auto" color="hsl(231, 11%, 63%)">
@@ -98,7 +110,7 @@ const StepThree = (props) => {
         <Button
           type="submit"
           color="white"
-          fontSize="20px"
+          fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
           borderRadius="7px "
           backgroundColor="hsl(213, 96%, 18%)"
           padding="10px 20px"
@@ -112,7 +124,7 @@ const StepThree = (props) => {
         <Button
           type="submit"
           color="white"
-          fontSize="20px"
+          fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
           borderRadius="7px "
           backgroundColor="hsl(213, 96%, 18%)"
           padding="10px 20px"
