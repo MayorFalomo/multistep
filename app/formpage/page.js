@@ -40,8 +40,32 @@ const formpage = () => {
   });
 
   return (
-    <div className="app">
-      <Container overflow="hidden" backgroundColor="black" h="70vh">
+    <Container
+      maxW={{
+        base: "100%",
+        sm: "100%",
+        md: "100%",
+        lg: "100vw",
+        xl: "100%",
+        "2xl": "full",
+      }}
+      w={{
+        base: "100%",
+        sm: "100%",
+        md: "100%",
+        lg: "100vw",
+        xl: "100%",
+        "2xl": "full",
+      }}
+      border="3px yellow solid"
+      p="0"
+    >
+      <Container
+        maxW={{ base: "100%", lg: "100%", xl: "100%" }}
+        overflow="hidden"
+        backgroundColor="black"
+        h="70vh"
+      >
         <Box
           display="flex"
           justifyContent="center"
@@ -56,11 +80,15 @@ const formpage = () => {
       <Container
         h="100vh"
         display="flex"
+        flexDirection={{ base: "column", sm: "column", lg: "row", xl: "row" }}
         alignItems="center"
-        width="100%"
+        maxWidth="100%"
+        // maxW="100%"
         // m="5px 5px"
         overflow="hidden"
-        // border="2px red solid "
+        p="0"
+        m="0"
+        border="2px red solid "
       >
         <Box
           backgroundImage="./sidebar.svg"
@@ -69,8 +97,24 @@ const formpage = () => {
           backgroundSize="cover"
           objectFit="cover"
           height="100%"
-          width="500px"
-          maxW="40%"
+          // width="500px"
+          // maxW="40%"
+          w={{
+            base: "100%",
+            sm: "100%",
+            lg: "500px",
+            xl: "500px",
+            "2xl": "500px",
+          }}
+          r
+          maxW={{
+            base: "100%",
+            sm: "100%",
+            lg: "40%",
+            xl: "40%",
+            "2xl": "40%",
+          }}
+          border="2px red solid "
         >
           <Stack spacing="20px" mt="30px" p="20px">
             <Flex alignItems="center" gap="20px">
@@ -179,7 +223,7 @@ const formpage = () => {
           </Stack>
         </Box>
 
-        <Container width="80%" height="100%">
+        <Container maxWidth="50%" height="100%">
           {step == 1 ? (
             <StepOne
               setStep={setStep}
@@ -222,7 +266,7 @@ const formpage = () => {
           )}
         </Container>
       </Container>
-    </div>
+    </Container>
   );
 };
 

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
+  ChakraProvider,
   Container,
   Flex,
   FormControl,
@@ -52,14 +53,39 @@ const StepOne = (props) => {
 
   // console.log(values, "This is value");
   return (
+    // <ChakraProvider>
     <FormControl
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
       // border="2px green solid"
-      width="40%"
-      // width={{ base: "40%", md: "60%", xl: "40%" }}
+      // width="40%"
+      maxW={{
+        base: "95%",
+        sm: "95%",
+        md: "80%",
+        lg: "90%",
+        xl: "90%",
+        "2xl": "600px",
+      }}
+      minW={{
+        base: "95%",
+        sm: "95%",
+        md: "40%",
+        lg: "60%",
+        xl: "60%",
+        "2xl": "500px",
+      }}
+      w={{
+        base: "95%",
+        sm: "95%",
+        md: "80%",
+        lg: "90%",
+        xl: "90%",
+        "2xl": "100%",
+      }}
       m="0 auto"
+      p="0"
       height="100%"
       isRequired
       onSubmit={handleChange}
@@ -126,7 +152,7 @@ const StepOne = (props) => {
                   props.date ? moment(values).format("MMM Do YY") : ""
                 }
               />
-              <InputRightAddon>
+              <InputRightAddon p="0">
                 <IconButton
                   onClick={() => setOpenCalendar(!openCalendar)}
                   colorScheme="blue"
@@ -169,6 +195,7 @@ const StepOne = (props) => {
         </Button>
       </Box>
     </FormControl>
+    // </ChakraProvider>
   );
 };
 

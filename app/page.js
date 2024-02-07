@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import {
   Box,
   Button,
+  ChakraProvider,
   Container,
   Flex,
   FormControl,
@@ -12,6 +13,9 @@ import {
   Input,
   Stack,
   Text,
+  ThemeProvider,
+  extendTheme,
+  theme,
 } from "@chakra-ui/react";
 import StepOne from "./components/form/StepOne";
 import StepTwo from "./components/form/StepTwo";
@@ -20,6 +24,8 @@ import StepFour from "./components/form/StepFour";
 import StepFive from "./components/form/StepFive";
 import SuccessPage from "./components/form/SuccessPage";
 import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
   const styleInput = {
@@ -47,15 +53,59 @@ export default function Home() {
     zipCode,
   });
 
+  const breakpoints = {
+    base: "0px",
+    sm: "450px",
+    md: "768px",
+    lg: "960px",
+    xl: "1200px",
+    "2xl": "1536px",
+  };
+
+  // const theme = extendTheme({ breakpoints });
+
   // console.log(formData, "formData");
   return (
-    <div className="app">
-      <Container overflow="hidden" backgroundColor="black" h="70vh">
+    <Container
+      maxW={{
+        base: "100%",
+        sm: "100%",
+        md: "100%",
+        lg: "100vw",
+        xl: "100%",
+        "2xl": "full",
+      }}
+      w={{
+        base: "100%",
+        sm: "100%",
+        md: "100%",
+        lg: "100vw",
+        xl: "100%",
+        "2xl": "full",
+      }}
+      maxH={{
+        base: "100%",
+        sm: "100%",
+        md: "100%",
+        lg: "100%",
+        xl: "100%",
+        "2xl": "full",
+      }}
+      // border="3px yellow solid"
+      p="0"
+    >
+      <Container
+        maxW={{ base: "100%", lg: "100%", xl: "100%" }}
+        overflow="hidden"
+        backgroundColor="black"
+        h="70vh"
+      >
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
           h="100%"
+          // w={{ base: "40%", lg: "60%", xl: "40%" }}
           // border="2px green solid "
         >
           <Heading color="#fff" fontSize="40px ">
@@ -65,12 +115,22 @@ export default function Home() {
       </Container>
       <Container
         h="100vh"
+        maxH="100%"
         display="flex"
+        flexDirection={{
+          base: "column",
+          sm: "column",
+          md: "row",
+          lg: "row",
+          xl: "row",
+        }}
         alignItems="center"
-        width="100%"
+        maxWidth="100%"
         // m="5px 5px"
-        overflow="hidden"
-        // border="2px red solid "
+        // overflow="hidden"
+        // border="2px crimson solid "
+        p="0"
+        m="0"
       >
         <Box
           backgroundImage="./sidebar.svg"
@@ -78,11 +138,36 @@ export default function Home() {
           backgroundPosition="center"
           backgroundSize="cover"
           objectFit="cover"
-          height="100%"
-          width="500px"
-          maxW="40%"
+          height={{ base: "30%", md: "100%" }}
+          // width="500px"
+          // maxW="40%"
+          w={{
+            base: "100%",
+            sm: "100%",
+            md: "40%",
+            lg: "500px",
+            xl: "500px",
+            "2xl": "500px",
+          }}
+          maxW={{
+            base: "100%",
+            sm: "100%",
+            md: "70%",
+            lg: "40%",
+            xl: "40%",
+            "2xl": "40%",
+          }}
+          // border="2px red solid "
         >
-          <Stack spacing="20px" mt="30px" p="20px">
+          <Stack
+            direction={{ base: "row", md: "column" }}
+            justifyContent={{ base: "center", md: "flex-start" }}
+            alignItems={{ base: "center", md: "flex-start" }}
+            spacing="20px"
+            mt="30px"
+            p="20px"
+            // border="2px red solid "
+          >
             <Flex alignItems="center" gap="20px">
               <Text
                 border={step == 1 ? "none" : "2px white solid "}
@@ -100,7 +185,11 @@ export default function Home() {
                 {" "}
                 1
               </Text>
-              <Box display="flex" flexDirection="column" gap="10px">
+              <Box
+                display={{ base: "none", md: "flex" }}
+                flexDirection="column"
+                gap="10px"
+              >
                 <Heading color="white">Step 1 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
@@ -120,7 +209,11 @@ export default function Home() {
               >
                 2{" "}
               </Text>
-              <Box display="flex" flexDirection="column" gap="10px">
+              <Box
+                display={{ base: "none", md: "flex" }}
+                flexDirection="column"
+                gap="10px"
+              >
                 <Heading color="white">Step 2 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
@@ -140,7 +233,11 @@ export default function Home() {
               >
                 3{" "}
               </Text>
-              <Box display="flex" flexDirection="column" gap="10px">
+              <Box
+                display={{ base: "none", md: "flex" }}
+                flexDirection="column"
+                gap="10px"
+              >
                 <Heading color="white">Step 3 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
@@ -160,7 +257,11 @@ export default function Home() {
               >
                 4{" "}
               </Text>
-              <Box display="flex" flexDirection="column" gap="10px">
+              <Box
+                display={{ base: "none", md: "flex" }}
+                flexDirection="column"
+                gap="10px"
+              >
                 <Heading color="white">Step 5 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
@@ -181,7 +282,11 @@ export default function Home() {
               >
                 5{" "}
               </Text>
-              <Box display="flex" flexDirection="column" gap="10px">
+              <Box
+                display={{ base: "none", md: "flex" }}
+                flexDirection="column"
+                gap="10px"
+              >
                 <Heading color="white">Step 5 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
@@ -189,7 +294,11 @@ export default function Home() {
           </Stack>
         </Box>
 
-        <Container width="80%" height="100%">
+        <Container
+          w={{ base: "100%", sm: "100%", lg: "60%", xl: "80%", "2xl": "80%" }}
+          height="100%"
+          p="0"
+        >
           {step == 1 ? (
             <StepOne
               setStep={setStep}
@@ -221,17 +330,18 @@ export default function Home() {
             <StepFour setStep={setStep} setFormData={setFormData} />
           )}
           {step == 5 && (
-            <StepFive setStep={setStep} setFormData={setFormData} />
-          )}
-          {step == 6 && (
-            <SuccessPage
+            <StepFive
               setStep={setStep}
               formData={formData}
               setFormData={setFormData}
             />
           )}
+          {step == 6 && (
+            <SuccessPage setStep={setStep} setFormData={setFormData} />
+          )}
         </Container>
       </Container>
-    </div>
+    </Container>
+    // </ChakraProvider>
   );
 }
