@@ -214,7 +214,11 @@ const formpage = () => {
             <StepFive setStep={setStep} setFormData={setFormData} />
           )}
           {step == 6 && (
-            <SuccessPage setStep={setStep} setFormData={setFormData} />
+            <SuccessPage
+              setStep={setStep}
+              formData={formData}
+              setFormData={setFormData}
+            />
           )}
         </Container>
       </Container>

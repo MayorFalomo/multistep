@@ -105,8 +105,10 @@ const StepTwo = (props) => {
             });
             return component.types[0] == "postal_code";
           });
-          setZipCode(postalCode);
-          props.setZipCode(postalCode?.long_name);
+          setZipCode(postalCode?.long_name || postalCode?.short_name || "");
+          props.setZipCode(
+            postalCode?.long_name || postalCode?.short_name || ""
+          );
           // console.log(postalCode.long_name, "postal code");
         } else {
           console.log("No results found");
@@ -127,6 +129,8 @@ const StepTwo = (props) => {
       email: email,
     });
   };
+
+  // console.log(zipCode, "zipcode");
 
   return (
     <FormControl
