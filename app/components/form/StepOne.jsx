@@ -56,8 +56,9 @@ const StepOne = (props) => {
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      border="2px green solid"
-      width={{ base: "40%", md: "60%", xl: "40%" }}
+      // border="2px green solid"
+      width="40%"
+      // width={{ base: "40%", md: "60%", xl: "40%" }}
       m="0 auto"
       height="100%"
       isRequired

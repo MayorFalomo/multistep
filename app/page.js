@@ -189,7 +189,7 @@ export default function Home() {
           </Stack>
         </Box>
 
-        <Container border="2px red solid" width="80%" height="100%">
+        <Container width="80%" height="100%">
           {step == 1 ? (
             <StepOne
               setStep={setStep}
