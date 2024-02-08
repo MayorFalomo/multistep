@@ -33,11 +33,11 @@ const StepTwo = (props) => {
           fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
           colorScheme=" hsl(213, 96%, 18%) "
         >
-          Enter Your Address
+          Enter Booking Number
         </Heading>
         <Text m="20px auto" color="hsl(231, 11%, 63%)">
           {" "}
-          Please provide your location
+          Please provide your booking number
         </Text>
         <Stack spacing="20px ">
           <Box>

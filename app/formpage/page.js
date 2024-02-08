@@ -18,6 +18,7 @@ import StepThree from "../components/form/StepThree";
 import StepFour from "../components/form/StepFour";
 import StepFive from "../components/form/StepFive";
 import SuccessPage from "../components/form/SuccessPage";
+import StepSix from "../components/form/StepSix";
 
 const formpage = () => {
   const [step, setStep] = useState(1);
@@ -30,7 +31,7 @@ const formpage = () => {
   const [address, setAddress] = useState("");
   const [bookingNumber, setBookingNumber] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [authMessage, setAuthMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   const [formData, setFormData] = useState({
     name,
     surname,

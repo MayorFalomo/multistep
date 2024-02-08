@@ -142,12 +142,13 @@ const StepThree = (props) => {
           fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
           colorScheme=" hsl(213, 96%, 18%) "
         >
-          Enter Your Address
+          Personal Info{" "}
         </Heading>
         <Text m="20px auto" color="hsl(231, 11%, 63%)">
           {" "}
-          Please provide your location
+          Please provide your name, email address and phone number etc.{" "}
         </Text>
+
         <Stack spacing="20px ">
           <Box>
             <FormLabel fontSize="18">Name</FormLabel>

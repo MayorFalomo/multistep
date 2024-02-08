@@ -28,6 +28,7 @@ const StepSix = (props) => {
       formData.append("address", props.formData.address);
       formData.append("phone", props.formData.telephone);
       formData.append("address", props.formData.address);
+
       //   for (var pair of formData.entries()) {
       //     console.log(pair[0] + ", " + pair[1]);
       //   }
@@ -48,6 +49,7 @@ const StepSix = (props) => {
         })
         .catch((error) => {
           console.log(error);
+          props.setErrorMessage(true);
         });
     } catch (error) {
       console.log(error);

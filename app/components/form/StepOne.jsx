@@ -59,11 +59,11 @@ const StepOne = (props) => {
           fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
           colorScheme=" hsl(213, 96%, 18%) "
         >
-          Personal Info{" "}
+          Enter Your Flight Number
         </Heading>
         <Text m="20px auto" color="hsl(231, 11%, 63%)">
           {" "}
-          Please provide your name, email address and phone number{" "}
+          Please provide your flight number and date
         </Text>
         <Stack spacing="20px ">
           <Box>
