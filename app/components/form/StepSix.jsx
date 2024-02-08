@@ -103,7 +103,7 @@ const StepSix = (props) => {
               Go to Next Step
             </Text>
             {props.errorMessage ? (
-              <Text color="red" fontSize="20px">
+              <Text color="red" fontSize={{ base: "18px", xl: "20px" }}>
                 Sorry! An Error has occurred, Ensure you typed all your values
                 correctly{" "}
                 <Tag
@@ -114,13 +114,6 @@ const StepSix = (props) => {
                 >
                   <TagLabel>Try Again </TagLabel>
                 </Tag>
-                {/* <span
-              color="hsl(213, 96%, 18%)"
-              cursor="pointer"
-              onClick={() => props?.setStep(1)}
-            >
-              Try again{" "}
-            </span> */}
               </Text>
             ) : (
               ""

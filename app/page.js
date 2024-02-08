@@ -3,7 +3,6 @@ import { useState } from "react";
 import {
   Box,
   Button,
-  ChakraProvider,
   Container,
   Flex,
   Heading,

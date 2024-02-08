@@ -1,6 +1,3 @@
-// import React from "react";
-// import { Container, Flex, HStack, List, ListItem } from "@chakra-ui/react";
-// import Link from "next/link";
 "use client";
 
 import {
@@ -24,7 +21,6 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-// import Link from "next/link";
 import NextLink from "next/link";
 import { Link } from "@chakra-ui/react";
 
@@ -134,17 +130,6 @@ const Navbar = () => {
                 </Link>
               </ListItem>
             </List>
-            {/* <HStack spacing={8} alignItems={"center"}>
-              <HStack
-                as={"nav"}
-                spacing={4}
-                display={{ base: "none", md: "flex" }}
-              >
-                {Links.map((link) => (
-                  <NavLink key={link}>{link}</NavLink>
-                ))}
-              </HStack>
-            </HStack> */}
 
             <Menu>
               <IconButton
