@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -14,42 +14,46 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 const StepSix = (props) => {
-  const submitForm = () => {
+  //? Parts of the code are commented out should in case you want to add more input boxes it's easier just uncomment it out
+
+  const submitForm = async () => {
     try {
-      console.log(props.formData, "response");
-      const formData = new FormData();
-      formData.append("flight_number", props.flightNumber);
-      formData.append("date", props.date);
-      formData.append("booking_number", props.bookingNumber);
-      formData.append("name", props.name);
-      formData.append("surname", props.surname);
-      formData.append("email", props.email);
-      formData.append("address", props.address);
-      formData.append("phone", props.telephone);
-      formData.append("address", props.address);
-      console.log(formData, "Formdata ");
-      axios
-        .post("https://apps.converter.bloombyte.dev/submit-flight/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+      var formData = new FormData();
+      formData.append("flight_number", props.formData.flightNumber);
+      formData.append("booking_number", props.formData.bookingNumber);
+      formData.append("name", props.formData.name);
+      formData.append("surname", props.formData.surname);
+      formData.append("email", props.formData.email);
+      formData.append("date", props.formData.date);
+      formData.append("address", props.formData.address);
+      formData.append("phone", props.formData.telephone);
+      formData.append("address", props.formData.address);
+      //   for (var pair of formData.entries()) {
+      //     console.log(pair[0] + ", " + pair[1]);
+      //   }
+      console.log(...formData, "my formData ");
+
+      await axios({
+        method: "POST",
+        url: "https://apps.converter.bloombyte.dev/submit-flight/",
+        data: formData,
+
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
         .then((response) => {
-          console.log(response.data);
+          //   console.log(response.data);
           props.setStep(7);
         })
         .catch((error) => {
-          props?.setErrorMessage(true);
           console.log(error);
         });
-      //   props.setStep(7);
     } catch (error) {
       console.log(error);
       props.setErrorMessage(true);
     }
   };
-
-  console.log(props.date);
 
   return (
     <FormControl
@@ -82,7 +86,11 @@ const StepSix = (props) => {
         </Text>
         {props.errorMessage ? (
           <Text color="red" fontSize="20px">
-            Sorry! An Error has occurred{" "}
+            Sorry! An Error has occurred, Ensure you typed all your values
+            correctly,{" "}
+            <span color="hsl(213, 96%, 18%)" onClick={() => props?.setStep(1)}>
+              Try again{" "}
+            </span>
           </Text>
         ) : (
           ""

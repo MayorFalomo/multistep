@@ -66,8 +66,6 @@ export default function Home() {
     "2xl": "1536px",
   };
 
-  console.log(date, "date");
-
   return (
     <Container
       maxW={{
@@ -404,16 +402,6 @@ export default function Home() {
           {step == 6 && (
             <StepSix
               setStep={setStep}
-              flightNumber={flightNumber}
-              date={date}
-              setDate={setDate}
-              name={name}
-              email={email}
-              address={address}
-              setAddress={setAddress}
-              telephone={telephone}
-              surname={surname}
-              bookingNumber={bookingNumber}
               formData={formData}
               setFormData={setFormData}
               errorMessage={errorMessage}
@@ -426,6 +414,5 @@ export default function Home() {
         </Container>
       </Container>
     </Container>
-    // </ChakraProvider>
   );
 }

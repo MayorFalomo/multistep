@@ -160,9 +160,14 @@ const StepOne = (props) => {
               }}
               type="datetime-local"
               onChange={(e) => {
-                props.setDate(e.target.value);
+                props.setFormData({
+                  ...props.formData,
+                  date: moment(e.target.value).format("L"),
+                });
+                // props.setDate(e.target.value);
               }}
-              defaultValue={props.date}
+              // value={props.date}
+              // defaultValue={props.date}
             />
 
             {/* {openCalendar ? (
