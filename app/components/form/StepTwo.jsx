@@ -1,28 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Container,
-  Flex,
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Input,
-  InputGroup,
-  InputRightAddon,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  LoadScript,
-  Marker,
-  StandaloneSearchBox,
-} from "@react-google-maps/api";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 const StepTwo = (props) => {
   return (
     <FormControl
@@ -85,19 +71,12 @@ const StepTwo = (props) => {
                   bookingNumber: e.target.value,
                 })
               }
-              // defaultValue={zipCode}
             />
           </Box>
         </Stack>
       </Box>
 
-      <Box
-        // border="2px red solid"
-        w="full"
-        m="40px auto"
-        display="flex"
-        justifyContent="space-between"
-      >
+      <Box w="full" m="40px auto" display="flex" justifyContent="space-between">
         <Button
           type="submit"
           color="white"

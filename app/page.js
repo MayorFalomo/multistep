@@ -1,21 +1,15 @@
 "use client";
 import { useState } from "react";
-import styles from "./page.module.css";
 import {
   Box,
   Button,
   ChakraProvider,
   Container,
   Flex,
-  FormControl,
-  FormLabel,
   Heading,
   Input,
   Stack,
   Text,
-  ThemeProvider,
-  extendTheme,
-  theme,
 } from "@chakra-ui/react";
 import StepOne from "./components/form/StepOne";
 import StepTwo from "./components/form/StepTwo";
@@ -23,18 +17,9 @@ import StepThree from "./components/form/StepThree";
 import StepFour from "./components/form/StepFour";
 import StepFive from "./components/form/StepFive";
 import SuccessPage from "./components/form/SuccessPage";
-import axios from "axios";
-import { AnimatePresence, motion } from "framer-motion";
-import Navbar from "./components/Navbar";
 import StepSix from "./components/form/StepSix";
 
 export default function Home() {
-  const styleInput = {
-    border: "1px solid  hsl(231, 11%, 63%)",
-    padding: "8px 15px",
-    borderRadius: "8px",
-  };
-
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -385,16 +370,6 @@ export default function Home() {
           {step == 5 && (
             <StepFive
               setStep={setStep}
-              flightNumber={flightNumber}
-              date={date}
-              setDate={setDate}
-              name={name}
-              email={email}
-              address={address}
-              setAddress={setAddress}
-              telephone={telephone}
-              surname={surname}
-              bookingNumber={bookingNumber}
               formData={formData}
               setFormData={setFormData}
             />

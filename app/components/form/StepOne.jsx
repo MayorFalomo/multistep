@@ -1,48 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  ChakraProvider,
-  Container,
-  Flex,
   FormControl,
   FormLabel,
   Heading,
-  IconButton,
   Input,
-  InputGroup,
-  InputRightAddon,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import moment from "moment/moment";
-import axios from "axios";
-import { extendTheme } from "@chakra-ui/react";
 const StepOne = (props) => {
-  const [values, onChange] = useState(new Date());
-  const [openCalendar, setOpenCalendar] = useState(false);
-  const [dateValue, setDateValue] = useState("");
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    const { value } = e.target;
-    //If the response status is 200 then setFormData to be the value
-    // const response = axios
-    //   .post("urlToCheckFlightNumber", value)
-    //   .catch((err) => console.log(err));
-    setDateValue(values);
-    props?.setFormData({
-      ...props?.formData,
-      flightNumber: value,
-      date: values,
-    });
-    props.setDate(values);
-  };
-
   const breakpoints = {
     base: "0px",
     sm: "450px",
@@ -51,16 +19,6 @@ const StepOne = (props) => {
     xl: "1200px",
     "2xl": "1536px",
   };
-
-  // useEffect(() => {
-  //   console.log(values.toDateString.length, "present lenth");
-  //   // values.toString.length > 1 ? setDateValue(values) : setDateValue("");
-  // }, [values]);
-
-  // console.log(values);
-  // console.log(dateValue, "I am dateVale");
-
-  const theme = extendTheme({ breakpoints });
 
   return (
     <FormControl
@@ -95,7 +53,6 @@ const StepOne = (props) => {
       p="0"
       height="100%"
       isRequired
-      onSubmit={handleChange}
     >
       <Box>
         <Heading
@@ -139,11 +96,8 @@ const StepOne = (props) => {
 
           <Box>
             <FormLabel>Enter Date </FormLabel>
-            {/* <InputGroup mt="8px" border="1px solid  hsl(229, 24%, 87%)"> */}
             <Input
-              // type="text"
               size="md"
-              // disabled
               border="1px solid  hsl(229, 24%, 87%)"
               backgroundColor="white"
               fontSize="18px"
@@ -164,21 +118,8 @@ const StepOne = (props) => {
                   ...props.formData,
                   date: moment(e.target.value).format("L"),
                 });
-                // props.setDate(e.target.value);
               }}
-              // value={props.date}
-              // defaultValue={props.date}
             />
-
-            {/* {openCalendar ? (
-              <Calendar
-                onChange={onChange}
-                maxDate={new Date()}
-                value={values}
-              />
-            ) : (
-              ""
-            )} */}
           </Box>
         </Stack>
       </Box>
@@ -207,23 +148,3 @@ const StepOne = (props) => {
 };
 
 export default StepOne;
-
-// // Create a function to convert JSON to FormData
-// function jsonToFormData(json) {
-//   const formData = new FormData();
-
-//   Object.keys(json).forEach((key) => {
-//     formData.append(key, json[key]);
-//   });
-
-//   return formData;
-// }
-
-// // Example JSON data
-// const jsonData = {
-//   username: "john_doe",
-//   email: "john@example.com",
-// };
-
-// // Convert JSON data to FormData
-// const formData = jsonToFormData(jsonData);

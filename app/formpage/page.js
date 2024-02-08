@@ -30,7 +30,7 @@ const formpage = () => {
   const [address, setAddress] = useState("");
   const [bookingNumber, setBookingNumber] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [authMessage, setAuthMessage] = useState("");
+  const [authMessage, setAuthMessage] = useState(false);
   const [formData, setFormData] = useState({
     name,
     surname,
@@ -309,22 +309,23 @@ const formpage = () => {
           {step == 2 && (
             <StepTwo
               setStep={setStep}
-              name={name}
-              email={email}
-              address={address}
-              setAddress={setAddress}
-              telephone={telephone}
-              setTelephone={setTelephone}
-              surname={surname}
-              setSurname={setSurname}
               bookingNumber={bookingNumber}
-              setBookingNumber={setBookingNumber}
               formData={formData}
               setFormData={setFormData}
             />
           )}
           {step == 3 && (
-            <StepThree setStep={setStep} setFormData={setFormData} />
+            <StepThree
+              setStep={setStep}
+              name={name}
+              email={email}
+              address={address}
+              setAddress={setAddress}
+              telephone={telephone}
+              surname={surname}
+              formData={formData}
+              setFormData={setFormData}
+            />
           )}
           {step == 4 && (
             <StepFour setStep={setStep} setFormData={setFormData} />
@@ -337,6 +338,15 @@ const formpage = () => {
             />
           )}
           {step == 6 && (
+            <StepSix
+              setStep={setStep}
+              formData={formData}
+              setFormData={setFormData}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
+            />
+          )}
+          {step == 7 && (
             <SuccessPage setStep={setStep} setFormData={setFormData} />
           )}
         </Container>
