@@ -17,7 +17,7 @@ const StepTwo = (props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        style={{ height: "100%", overflow: "hidden" }}
+        style={{ height: "100%", marginBottom: "30px" }}
       >
         <FormControl
           display="flex"
