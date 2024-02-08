@@ -26,6 +26,7 @@ import SuccessPage from "./components/form/SuccessPage";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import Navbar from "./components/Navbar";
+import StepSix from "./components/form/StepSix";
 
 export default function Home() {
   const styleInput = {
@@ -44,7 +45,7 @@ export default function Home() {
   const [address, setAddress] = useState("");
   const [bookingNumber, setBookingNumber] = useState("");
   const [zipCode, setZipCode] = useState("");
-  const [authMessage, setAuthMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(false);
   const [formData, setFormData] = useState({
     name,
     surname,
@@ -65,9 +66,8 @@ export default function Home() {
     "2xl": "1536px",
   };
 
-  // const theme = extendTheme({ breakpoints });
+  console.log(date, "date");
 
-  // console.log(formData, "formData");
   return (
     <Container
       maxW={{
@@ -310,6 +310,36 @@ export default function Home() {
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
+
+            <Flex alignItems="center" gap="20px">
+              <Text
+                border={step == 6 ? "none" : "2px white solid "}
+                width="40px"
+                height="40px"
+                borderRadius="50% "
+                color="white"
+                cursor="pointer"
+                placeContent="center"
+                display="grid"
+                backgroundColor={step == 6 ? "hsl(228, 100%, 84%) " : ""}
+                onClick={() => setStep(6)}
+              >
+                6{" "}
+              </Text>
+              <Box
+                display={{ base: "none", md: "flex" }}
+                flexDirection="column"
+                gap="10px"
+              >
+                <Heading
+                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                  color="white"
+                >
+                  Step 6{" "}
+                </Heading>
+                <Text color="white">Your Info </Text>
+              </Box>
+            </Flex>
           </Stack>
         </Box>
 
@@ -323,6 +353,7 @@ export default function Home() {
               setStep={setStep}
               flightNumber={flightNumber}
               date={date}
+              setDate={setDate}
               formData={formData}
               setFormData={setFormData}
             />
@@ -332,6 +363,33 @@ export default function Home() {
           {step == 2 && (
             <StepTwo
               setStep={setStep}
+              bookingNumber={bookingNumber}
+              formData={formData}
+              setFormData={setFormData}
+            />
+          )}
+          {step == 3 && (
+            <StepThree
+              setStep={setStep}
+              name={name}
+              email={email}
+              address={address}
+              setAddress={setAddress}
+              telephone={telephone}
+              surname={surname}
+              formData={formData}
+              setFormData={setFormData}
+            />
+          )}
+          {step == 4 && (
+            <StepFour setStep={setStep} setFormData={setFormData} />
+          )}
+          {step == 5 && (
+            <StepFive
+              setStep={setStep}
+              flightNumber={flightNumber}
+              date={date}
+              setDate={setDate}
               name={name}
               email={email}
               address={address}
@@ -343,20 +401,26 @@ export default function Home() {
               setFormData={setFormData}
             />
           )}
-          {step == 3 && (
-            <StepThree setStep={setStep} setFormData={setFormData} />
-          )}
-          {step == 4 && (
-            <StepFour setStep={setStep} setFormData={setFormData} />
-          )}
-          {step == 5 && (
-            <StepFive
+          {step == 6 && (
+            <StepSix
               setStep={setStep}
+              flightNumber={flightNumber}
+              date={date}
+              setDate={setDate}
+              name={name}
+              email={email}
+              address={address}
+              setAddress={setAddress}
+              telephone={telephone}
+              surname={surname}
+              bookingNumber={bookingNumber}
               formData={formData}
               setFormData={setFormData}
+              errorMessage={errorMessage}
+              setErrorMessage={setErrorMessage}
             />
           )}
-          {step == 6 && (
+          {step == 7 && (
             <SuccessPage setStep={setStep} setFormData={setFormData} />
           )}
         </Container>

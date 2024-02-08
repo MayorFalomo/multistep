@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -25,6 +25,7 @@ import { extendTheme } from "@chakra-ui/react";
 const StepOne = (props) => {
   const [values, onChange] = useState(new Date());
   const [openCalendar, setOpenCalendar] = useState(false);
+  const [dateValue, setDateValue] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -33,11 +34,13 @@ const StepOne = (props) => {
     // const response = axios
     //   .post("urlToCheckFlightNumber", value)
     //   .catch((err) => console.log(err));
+    setDateValue(values);
     props?.setFormData({
       ...props?.formData,
       flightNumber: value,
       date: values,
     });
+    props.setDate(values);
   };
 
   const breakpoints = {
@@ -49,17 +52,21 @@ const StepOne = (props) => {
     "2xl": "1536px",
   };
 
+  // useEffect(() => {
+  //   console.log(values.toDateString.length, "present lenth");
+  //   // values.toString.length > 1 ? setDateValue(values) : setDateValue("");
+  // }, [values]);
+
+  // console.log(values);
+  // console.log(dateValue, "I am dateVale");
+
   const theme = extendTheme({ breakpoints });
 
-  // console.log(values, "This is value");
   return (
-    // <ChakraProvider>
     <FormControl
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      // border="2px green solid"
-      // width="40%"
       maxW={{
         base: "95%",
         sm: "95%",
@@ -119,56 +126,46 @@ const StepOne = (props) => {
                 color: "gray.500",
                 fontFamily: "Ubuntu",
               }}
-              name="zipCode"
-              onChange={handleChange}
+              name="flight number"
+              onChange={(e) => {
+                props.setFormData({
+                  ...props.formData,
+                  flightNumber: e.target.value,
+                });
+              }}
               defaultValue={props.flightNumber}
             />
           </Box>
 
           <Box>
             <FormLabel>Enter Date </FormLabel>
-            <InputGroup mt="8px" border="1px solid  hsl(229, 24%, 87%)">
-              <Input
-                type="text"
-                size="md"
-                // disabled
-                border="none"
-                backgroundColor="white"
-                fontSize="18px"
-                w="100%"
-                borderRadius="6px"
-                outline="none "
-                padding="8px 15px "
-                width="100% "
-                placeholder={
-                  props.date
-                    ? `${moment(props.date).format("MMM Do YY")}`
-                    : "Enter Date "
-                }
-                _placeholder={{
-                  opacity: 0.8,
-                  color: "gray.500",
-                  fontFamily: "Ubuntu",
-                }}
-                onChange={handleChange}
-                defaultValue={
-                  props.date ? moment(values).format("MMM Do YY") : ""
-                }
-              />
-              <InputRightAddon p="0">
-                <IconButton
-                  onClick={() => setOpenCalendar(!openCalendar)}
-                  colorScheme="blue"
-                  border="none"
-                  outline="none"
-                  height="100%"
-                  cursor="pointer"
-                  aria-label="Select date"
-                  icon={<ChevronDownIcon fontSize="24px " />}
-                />
-              </InputRightAddon>
-            </InputGroup>
-            {openCalendar ? (
+            {/* <InputGroup mt="8px" border="1px solid  hsl(229, 24%, 87%)"> */}
+            <Input
+              // type="text"
+              size="md"
+              // disabled
+              border="1px solid  hsl(229, 24%, 87%)"
+              backgroundColor="white"
+              fontSize="18px"
+              w="100%"
+              borderRadius="6px"
+              outline="none "
+              padding="8px 15px "
+              width="100% "
+              placeholder={"Enter Date "}
+              _placeholder={{
+                opacity: 0.8,
+                color: "gray.500",
+                fontFamily: "Ubuntu",
+              }}
+              type="datetime-local"
+              onChange={(e) => {
+                props.setDate(e.target.value);
+              }}
+              defaultValue={props.date}
+            />
+
+            {/* {openCalendar ? (
               <Calendar
                 onChange={onChange}
                 maxDate={new Date()}
@@ -176,7 +173,7 @@ const StepOne = (props) => {
               />
             ) : (
               ""
-            )}
+            )} */}
           </Box>
         </Stack>
       </Box>
@@ -192,14 +189,36 @@ const StepOne = (props) => {
           border="none"
           outline="none"
           cursor="pointer"
+          _hover={{
+            backgroundColor: "hsl(213, 96%, 50%)",
+          }}
           onClick={() => props?.setStep(2)}
         >
           Next
         </Button>
       </Box>
     </FormControl>
-    // </ChakraProvider>
   );
 };
 
 export default StepOne;
+
+// // Create a function to convert JSON to FormData
+// function jsonToFormData(json) {
+//   const formData = new FormData();
+
+//   Object.keys(json).forEach((key) => {
+//     formData.append(key, json[key]);
+//   });
+
+//   return formData;
+// }
+
+// // Example JSON data
+// const jsonData = {
+//   username: "john_doe",
+//   email: "john@example.com",
+// };
+
+// // Convert JSON data to FormData
+// const formData = jsonToFormData(jsonData);

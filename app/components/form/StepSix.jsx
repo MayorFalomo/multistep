@@ -12,13 +12,50 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-const StepFour = (props) => {
+import axios from "axios";
+const StepSix = (props) => {
+  const submitForm = () => {
+    try {
+      console.log(props.formData, "response");
+      const formData = new FormData();
+      formData.append("flight_number", props.flightNumber);
+      formData.append("date", props.date);
+      formData.append("booking_number", props.bookingNumber);
+      formData.append("name", props.name);
+      formData.append("surname", props.surname);
+      formData.append("email", props.email);
+      formData.append("address", props.address);
+      formData.append("phone", props.telephone);
+      formData.append("address", props.address);
+      console.log(formData, "Formdata ");
+      axios
+        .post("https://apps.converter.bloombyte.dev/submit-flight/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          props.setStep(7);
+        })
+        .catch((error) => {
+          props?.setErrorMessage(true);
+          console.log(error);
+        });
+      //   props.setStep(7);
+    } catch (error) {
+      console.log(error);
+      props.setErrorMessage(true);
+    }
+  };
+
+  console.log(props.date);
+
   return (
     <FormControl
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      //   border="2px green solid"
       width={{ base: "100%", md: "80%", lg: "80%", xl: "80%", "2xl": "100%" }}
       maxW={{
         base: "95%",
@@ -37,12 +74,19 @@ const StepFour = (props) => {
           fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
           colorScheme=" hsl(213, 96%, 18%) "
         >
-          Step Four
+          Step Six
         </Heading>
         <Text m="20px auto" color="hsl(231, 11%, 63%)">
           {" "}
           Go to Next Step
         </Text>
+        {props.errorMessage ? (
+          <Text color="red" fontSize="20px">
+            Sorry! An Error has occurred{" "}
+          </Text>
+        ) : (
+          ""
+        )}
         {/* <Stack spacing="20px ">
           <Box>
             <FormLabel fontSize="18">Name</FormLabel>
@@ -119,7 +163,7 @@ const StepFour = (props) => {
           _hover={{
             backgroundColor: "hsl(213, 96%, 50%)",
           }}
-          onClick={() => props?.setStep(3)}
+          onClick={() => props?.setStep(5)}
         >
           Previous
         </Button>
@@ -136,13 +180,13 @@ const StepFour = (props) => {
           _hover={{
             backgroundColor: "hsl(213, 96%, 50%)",
           }}
-          onClick={() => props?.setStep(5)}
+          onClick={submitForm}
         >
-          Next
+          submit
         </Button>
       </Box>
     </FormControl>
   );
 };
 
-export default StepFour;
+export default StepSix;

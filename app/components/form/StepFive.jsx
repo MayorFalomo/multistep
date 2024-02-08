@@ -13,25 +13,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 const StepFive = (props) => {
-  const submitForm = () => {
-    try {
-      console.log(props.formData, "response");
-      // const response = await axios
-      //   .post("urlToSubmitFormTo", props.formData)
-      //   .catch((err) => console.log(err));
-      // response.status == 200 ? setStep(6) : setAuthMessage(true);
-      props.setStep(6); //Remove this line later and comment out the line above
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  //*Things are commented out here in case you need input boxes so you can just uncomment and use
   return (
     <FormControl
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      //   border="2px green solid"
       width={{ base: "100%", md: "80%", lg: "80%", xl: "80%", "2xl": "100%" }}
       maxW={{
         base: "95%",
@@ -129,6 +116,9 @@ const StepFive = (props) => {
           border="none"
           outline="none"
           cursor="pointer"
+          _hover={{
+            backgroundColor: "hsl(213, 96%, 50%)",
+          }}
           onClick={() => props?.setStep(4)}
         >
           Previous
@@ -143,9 +133,12 @@ const StepFive = (props) => {
           border="none"
           outline="none"
           cursor="pointer"
-          onClick={submitForm}
+          _hover={{
+            backgroundColor: "hsl(213, 96%, 50%)",
+          }}
+          onClick={() => props?.setStep(6)}
         >
-          Submit
+          Next
         </Button>
       </Box>
     </FormControl>
