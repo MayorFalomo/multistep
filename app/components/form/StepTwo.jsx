@@ -117,17 +117,6 @@ const StepTwo = (props) => {
     });
   };
 
-  const handleChange = (e) => {
-    const { name, address, value } = e.target;
-    console.log(name, "handle value");
-
-    props?.setFormData({
-      ...props?.formData,
-      name: name,
-      email: email,
-    });
-  };
-
   // console.log(zipCode, "zipcode");
 
   return (

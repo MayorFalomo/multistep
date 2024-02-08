@@ -252,7 +252,7 @@ const formpage = () => {
                   fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
                   color="white"
                 >
-                  Step 5{" "}
+                  Step 4{" "}
                 </Heading>
                 <Text color="white">Your Info </Text>
               </Box>

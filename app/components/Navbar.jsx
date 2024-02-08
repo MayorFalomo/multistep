@@ -68,7 +68,73 @@ const Navbar = () => {
             <Heading>Logo</Heading>
           </HStack>
           <Flex alignItems={"center"}>
-            <HStack spacing={8} alignItems={"center"}>
+            <List display={{ base: "none", md: "flex" }}>
+              <ListItem
+                px={2}
+                py={1}
+                rounded={"md"}
+                _hover={{
+                  textDecoration: "none",
+                  bg: useColorModeValue("gray.200", "gray.700"),
+                }}
+                fontSize={{ base: "16px", sm: "18px" }}
+                cursor="pointer "
+              >
+                <Link as={NextLink} href="/">
+                  Home
+                </Link>
+              </ListItem>
+
+              <ListItem
+                px={2}
+                py={1}
+                rounded={"md"}
+                _hover={{
+                  textDecoration: "none",
+                  bg: useColorModeValue("gray.200", "gray.700"),
+                }}
+                fontSize={{ base: "16px", sm: "18px" }}
+                cursor="pointer "
+              >
+                <Link as={NextLink} href="/about">
+                  About{" "}
+                </Link>{" "}
+              </ListItem>
+
+              <ListItem
+                px={2}
+                py={1}
+                rounded={"md"}
+                _hover={{
+                  textDecoration: "none",
+                  bg: useColorModeValue("gray.200", "gray.700"),
+                }}
+                fontSize={{ base: "16px", sm: "18px" }}
+                cursor="pointer "
+              >
+                <Link as={NextLink} href="/contact">
+                  Contact Us{" "}
+                </Link>
+              </ListItem>
+
+              <ListItem
+                px={2}
+                py={1}
+                rounded={"md"}
+                _hover={{
+                  textDecoration: "none",
+                  bg: useColorModeValue("gray.200", "gray.700"),
+                }}
+                fontSize={{ base: "16px", sm: "18px" }}
+                cursor="pointer "
+              >
+                <Link as={NextLink} href="/formpage">
+                  {" "}
+                  Form Page
+                </Link>
+              </ListItem>
+            </List>
+            {/* <HStack spacing={8} alignItems={"center"}>
               <HStack
                 as={"nav"}
                 spacing={4}
@@ -78,7 +144,8 @@ const Navbar = () => {
                   <NavLink key={link}>{link}</NavLink>
                 ))}
               </HStack>
-            </HStack>
+            </HStack> */}
+
             <Menu>
               <IconButton
                 size={"md"}
