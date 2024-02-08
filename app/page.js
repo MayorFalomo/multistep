@@ -57,7 +57,7 @@ export default function Home() {
         base: "100%",
         sm: "100%",
         md: "100%",
-        lg: "100vw",
+        lg: "100%",
         xl: "100%",
         "2xl": "full",
       }}
@@ -65,7 +65,7 @@ export default function Home() {
         base: "100%",
         sm: "100%",
         md: "100%",
-        lg: "100vw",
+        lg: "100%",
         xl: "100%",
         "2xl": "full",
       }}
@@ -78,6 +78,7 @@ export default function Home() {
         "2xl": "full",
       }}
       p="0"
+      overflow="hidden"
     >
       <Container
         maxW={{ base: "100%", lg: "100%", xl: "100%" }}
@@ -139,6 +140,7 @@ export default function Home() {
         >
           <Stack
             direction={{ base: "row", md: "column" }}
+            wrap={{ base: "wrap", md: "none" }}
             justifyContent={{ base: "center", md: "flex-start" }}
             alignItems={{ base: "center", md: "flex-start" }}
             spacing="20px"

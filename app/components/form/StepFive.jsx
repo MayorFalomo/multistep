@@ -19,7 +19,13 @@ const StepFive = (props) => {
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      width={{ base: "100%", md: "80%", lg: "80%", xl: "80%", "2xl": "100%" }}
+      width={{
+        base: "100%",
+        md: "80%",
+        lg: "80%",
+        xl: "80%",
+        "2xl": "100%",
+      }}
       maxW={{
         base: "95%",
         sm: "95%",

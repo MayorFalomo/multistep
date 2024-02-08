@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { AnimatePresence, motion } from "framer-motion";
 import moment from "moment/moment";
 const StepOne = (props) => {
   const breakpoints = {

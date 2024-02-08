@@ -23,6 +23,7 @@ import {
   StandaloneSearchBox,
 } from "@react-google-maps/api";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { AnimatePresence, motion } from "framer-motion";
 
 const StepThree = (props) => {
   const [map, setMap] = useState(null);
@@ -120,278 +121,300 @@ const StepThree = (props) => {
   };
 
   return (
-    <FormControl
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-around "
-      width={{ base: "100%", md: "80%", lg: "80%", xl: "80%", "2xl": "100%" }}
-      maxW={{
-        base: "95%",
-        sm: "95%",
-        md: "80%",
-        lg: "90%",
-        xl: "90%",
-        "2xl": "600px",
-      }}
-      m="0 auto"
-      minHeight="100%"
-      isRequired
-    >
-      <Box>
-        <Heading
-          fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
-          colorScheme=" hsl(213, 96%, 18%) "
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        style={{ height: "100%" }}
+      >
+        <FormControl
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around "
+          width={{
+            base: "100%",
+            md: "80%",
+            lg: "80%",
+            xl: "80%",
+            "2xl": "100%",
+          }}
+          maxW={{
+            base: "95%",
+            sm: "95%",
+            md: "80%",
+            lg: "90%",
+            xl: "90%",
+            "2xl": "600px",
+          }}
+          m="0 auto"
+          minHeight="100%"
+          isRequired
         >
-          Personal Info{" "}
-        </Heading>
-        <Text m="20px auto" color="hsl(231, 11%, 63%)">
-          {" "}
-          Please provide your name, email address and phone number etc.{" "}
-        </Text>
-
-        <Stack spacing="20px ">
           <Box>
-            <FormLabel fontSize="18">Name</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter your name"
-              fontSize="18px"
-              mt="8px"
-              padding="8px 15px "
-              borderRadius="6px"
-              outline="none"
-              width="100% "
-              border="1px solid  hsl(229, 24%, 87%)"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-              onChange={(e) => {
-                props.setFormData({
-                  ...props.formData,
-                  name: e.target.value,
-                });
-              }}
-              defaultValue={props.name}
-            />
-          </Box>
+            <Heading
+              fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
+              colorScheme=" hsl(213, 96%, 18%) "
+            >
+              Personal Info{" "}
+            </Heading>
+            <Text m="20px auto" color="hsl(231, 11%, 63%)">
+              {" "}
+              Please provide your name, email address and phone number etc.{" "}
+            </Text>
 
-          <Box>
-            <FormLabel fontSize="18">Surname</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter your surname"
-              fontSize="18px"
-              mt="8px"
-              padding="8px 15px "
-              borderRadius="6px"
-              outline="none"
-              width="100% "
-              border="1px solid  hsl(229, 24%, 87%)"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-              onChange={(e) => {
-                props.setFormData({
-                  ...props.formData,
-                  surname: e.target.value,
-                });
-              }}
-              defaultValue={props.surname}
-            />
-          </Box>
-
-          <Box>
-            <FormLabel fontSize="18">Telephone </FormLabel>
-            <Input
-              type="text"
-              required
-              size="md"
-              fontSize="18px"
-              mt="8px"
-              borderRadius="6px "
-              outline="none"
-              padding="8px 15px "
-              border="1px solid  hsl(229, 24%, 87%)"
-              width="100% "
-              placeholder={
-                props?.telephone ? props?.telephone : "Enter telephone"
-              }
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-              onChange={(e) =>
-                props.setFormData({
-                  ...props.formData,
-                  telephone: e.target.value,
-                })
-              }
-            />
-          </Box>
-
-          <Box>
-            <FormLabel fontSize="18">Email </FormLabel>
-            <Input
-              type="text"
-              size="md"
-              fontSize="18px"
-              mt="8px"
-              borderRadius="6px "
-              outline="none"
-              padding="8px 15px "
-              border="1px solid  hsl(229, 24%, 87%)"
-              width="100% "
-              placeholder="Enter email"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-              onChange={(e) => {
-                props.setFormData({
-                  ...props.formData,
-                  email: e.target.value,
-                });
-              }}
-            />
-          </Box>
-
-          <Box position="relative">
-            <FormLabel>Enter your Address </FormLabel>
-            <InputGroup mt="10px" border="1px solid  hsl(229, 24%, 87%)">
-              <Input
-                type="text"
-                size="md"
-                disabled
-                border="none"
-                backgroundColor="white"
-                fontSize="18px"
-                w="100%"
-                borderRadius="6px"
-                outline="none "
-                padding="8px 15px "
-                width="100% "
-                placeholder={addressInfo ? addressInfo : "Enter address "}
-                _placeholder={{
-                  opacity: 0.8,
-                  color: "gray.500",
-                  fontFamily: "Ubuntu",
-                }}
-                onChange={(e) => {
-                  props.setFormData({
-                    ...props.formData,
-                    address: addressInfo,
-                  });
-                }}
-                defaultValue={addressInfo}
-              />
-              <InputRightAddon p="0">
-                <IconButton
-                  onClick={() => setShowGoogleMap(!showGoogleMap)}
-                  colorScheme="blue"
-                  border="none"
+            <Stack spacing="20px ">
+              <Box>
+                <FormLabel fontSize="18">Name</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Enter your name"
+                  fontSize="18px"
+                  mt="8px"
+                  padding="8px 15px "
+                  borderRadius="6px"
                   outline="none"
-                  height="100%"
-                  cursor="pointer"
-                  aria-label="use maps"
-                  icon={<ChevronDownIcon fontSize="24px " />}
+                  width="100% "
+                  border="1px solid  hsl(229, 24%, 87%)"
+                  _placeholder={{
+                    opacity: 0.8,
+                    color: "gray.500",
+                    fontFamily: "Ubuntu",
+                  }}
+                  onChange={(e) => {
+                    props.setFormData({
+                      ...props.formData,
+                      name: e.target.value,
+                    });
+                  }}
+                  defaultValue={props.name}
                 />
-              </InputRightAddon>
-            </InputGroup>
-            {showGoogleMap && (
-              <Box
-                position="absolute"
-                bottom="-550px "
-                left="0"
-                zIndex="1"
-                w="100%"
-                h="550px"
-              >
-                {isLoaded && (
-                  <div>
-                    <StandaloneSearchBox
-                      onLoad={onLoad}
-                      onPlacesChanged={onPlacesChanged}
-                    >
-                      <input
-                        type="text"
-                        placeholder={
-                          addressInfo ? addressInfo : "Search for location"
-                        }
-                        style={{
-                          boxSizing: `border-box`,
-                          border: `1px solid transparent`,
-                          width: `300px`,
-                          height: `32px`,
-                          padding: `0 12px`,
-                          borderRadius: `3px`,
-                          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                          fontSize: `14px`,
-                          outline: `none`,
-                          textOverflow: `ellipses`,
-                        }}
-                      />
-                    </StandaloneSearchBox>
-                    <GoogleMap
-                      id="search-box-map"
-                      mapContainerStyle={containerStyle}
-                      center={center}
-                      zoom={8}
-                      onClick={onClick}
-                      onLoad={(map) => setMap(map)}
-                    >
-                      {markerPosition && <Marker position={markerPosition} />}
-                    </GoogleMap>
-                  </div>
+              </Box>
+
+              <Box>
+                <FormLabel fontSize="18">Surname</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Enter your surname"
+                  fontSize="18px"
+                  mt="8px"
+                  padding="8px 15px "
+                  borderRadius="6px"
+                  outline="none"
+                  width="100% "
+                  border="1px solid  hsl(229, 24%, 87%)"
+                  _placeholder={{
+                    opacity: 0.8,
+                    color: "gray.500",
+                    fontFamily: "Ubuntu",
+                  }}
+                  onChange={(e) => {
+                    props.setFormData({
+                      ...props.formData,
+                      surname: e.target.value,
+                    });
+                  }}
+                  defaultValue={props.surname}
+                />
+              </Box>
+
+              <Box position="relative">
+                <FormLabel>Enter your Address </FormLabel>
+                <InputGroup mt="10px" border="1px solid  hsl(229, 24%, 87%)">
+                  <Input
+                    type="text"
+                    size="md"
+                    disabled
+                    border="none"
+                    backgroundColor="white"
+                    fontSize="18px"
+                    w="100%"
+                    borderRadius="6px"
+                    outline="none "
+                    padding="8px 15px "
+                    width="100% "
+                    placeholder={addressInfo ? addressInfo : "Enter address "}
+                    _placeholder={{
+                      opacity: 0.8,
+                      color: "gray.500",
+                      fontFamily: "Ubuntu",
+                    }}
+                    onChange={(e) => {
+                      props.setFormData({
+                        ...props.formData,
+                        address: addressInfo,
+                      });
+                    }}
+                    defaultValue={addressInfo}
+                  />
+                  <InputRightAddon p="0">
+                    <IconButton
+                      onClick={() => setShowGoogleMap(!showGoogleMap)}
+                      colorScheme="blue"
+                      border="none"
+                      outline="none"
+                      height="100%"
+                      cursor="pointer"
+                      aria-label="use maps"
+                      icon={<ChevronDownIcon fontSize="24px " />}
+                    />
+                  </InputRightAddon>
+                </InputGroup>
+                {showGoogleMap && (
+                  <Box
+                    position="absolute"
+                    bottom="-550px "
+                    left="0"
+                    zIndex="1"
+                    w="100%"
+                    h="550px"
+                  >
+                    {isLoaded && (
+                      <div>
+                        <StandaloneSearchBox
+                          onLoad={onLoad}
+                          onPlacesChanged={onPlacesChanged}
+                        >
+                          <input
+                            type="text"
+                            placeholder={
+                              addressInfo ? addressInfo : "Search for location"
+                            }
+                            style={{
+                              boxSizing: `border-box`,
+                              border: `1px solid transparent`,
+                              width: `300px`,
+                              height: `32px`,
+                              padding: `0 12px`,
+                              borderRadius: `3px`,
+                              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                              fontSize: `14px`,
+                              outline: `none`,
+                              textOverflow: `ellipses`,
+                            }}
+                          />
+                        </StandaloneSearchBox>
+                        <GoogleMap
+                          id="search-box-map"
+                          mapContainerStyle={containerStyle}
+                          center={center}
+                          zoom={8}
+                          onClick={onClick}
+                          onLoad={(map) => setMap(map)}
+                        >
+                          {markerPosition && (
+                            <Marker position={markerPosition} />
+                          )}
+                        </GoogleMap>
+                      </div>
+                    )}
+                  </Box>
                 )}
               </Box>
-            )}
-          </Box>
-        </Stack>
-      </Box>
 
-      <Box w="full" m="40px auto" display="flex" justifyContent="space-between">
-        <Button
-          type="submit"
-          color="white"
-          fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
-          borderRadius="7px "
-          backgroundColor="hsl(213, 96%, 18%)"
-          padding="10px 20px"
-          border="none"
-          outline="none"
-          cursor="pointer"
-          _hover={{
-            backgroundColor: "hsl(213, 96%, 50%)",
-          }}
-          onClick={() => props?.setStep(1)}
-        >
-          Previous
-        </Button>
-        <Button
-          type="submit"
-          color="white"
-          fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
-          borderRadius="7px "
-          backgroundColor="hsl(213, 96%, 18%)"
-          padding="10px 20px"
-          border="none"
-          outline="none"
-          cursor="pointer"
-          _hover={{
-            backgroundColor: "hsl(213, 96%, 50%)",
-          }}
-          onClick={() => props?.setStep(4)}
-        >
-          Next
-        </Button>
-      </Box>
-    </FormControl>
+              <Box>
+                <FormLabel fontSize="18">Telephone </FormLabel>
+                <Input
+                  type="text"
+                  required
+                  size="md"
+                  fontSize="18px"
+                  mt="8px"
+                  borderRadius="6px "
+                  outline="none"
+                  padding="8px 15px "
+                  border="1px solid  hsl(229, 24%, 87%)"
+                  width="100% "
+                  placeholder={
+                    props?.telephone ? props?.telephone : "Enter telephone"
+                  }
+                  _placeholder={{
+                    opacity: 0.8,
+                    color: "gray.500",
+                    fontFamily: "Ubuntu",
+                  }}
+                  onChange={(e) =>
+                    props.setFormData({
+                      ...props.formData,
+                      telephone: e.target.value,
+                    })
+                  }
+                />
+              </Box>
+
+              <Box>
+                <FormLabel fontSize="18">Email </FormLabel>
+                <Input
+                  type="text"
+                  size="md"
+                  fontSize="18px"
+                  mt="8px"
+                  borderRadius="6px "
+                  outline="none"
+                  padding="8px 15px "
+                  border="1px solid  hsl(229, 24%, 87%)"
+                  width="100% "
+                  placeholder="Enter email"
+                  _placeholder={{
+                    opacity: 0.8,
+                    color: "gray.500",
+                    fontFamily: "Ubuntu",
+                  }}
+                  onChange={(e) => {
+                    props.setFormData({
+                      ...props.formData,
+                      email: e.target.value,
+                    });
+                  }}
+                />
+              </Box>
+            </Stack>
+          </Box>
+
+          <Box
+            w="full"
+            m="40px auto"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <Button
+              type="submit"
+              color="white"
+              fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+              borderRadius="7px "
+              backgroundColor="hsl(213, 96%, 18%)"
+              padding="10px 20px"
+              border="none"
+              outline="none"
+              cursor="pointer"
+              _hover={{
+                backgroundColor: "hsl(213, 96%, 50%)",
+              }}
+              onClick={() => props?.setStep(1)}
+            >
+              Previous
+            </Button>
+            <Button
+              type="submit"
+              color="white"
+              fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+              borderRadius="7px "
+              backgroundColor="hsl(213, 96%, 18%)"
+              padding="10px 20px"
+              border="none"
+              outline="none"
+              cursor="pointer"
+              _hover={{
+                backgroundColor: "hsl(213, 96%, 50%)",
+              }}
+              onClick={() => props?.setStep(4)}
+            >
+              Next
+            </Button>
+          </Box>
+        </FormControl>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
