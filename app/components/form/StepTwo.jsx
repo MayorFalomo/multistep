@@ -38,7 +38,6 @@ const StepTwo = (props) => {
   });
   const [showGoogleMap, setShowGoogleMap] = useState(false);
   const [zipCode, setZipCode] = useState("");
-  //  const [mapLoaded, setMapLoaded] = useState(false);
 
   const onLoad = (ref) => {
     setSearchBox(ref);
@@ -80,7 +79,6 @@ const StepTwo = (props) => {
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
     };
-    // console.log(clickedLocation);
 
     //The Geocode service takes in an object of the longitude and latitude and returns the address(Which is an array of objects) then we extract the address of the clicked location
     const geocoder = new window.google.maps.Geocoder();
@@ -105,10 +103,10 @@ const StepTwo = (props) => {
             });
             return component.types[0] == "postal_code";
           });
-          setZipCode(postalCode?.long_name || postalCode?.short_name || "");
-          props.setZipCode(
-            postalCode?.long_name || postalCode?.short_name || ""
-          );
+          // setZipCode(postalCode?.long_name || postalCode?.short_name || "");
+          // props.setZipCode(
+          //   postalCode?.long_name || postalCode?.short_name || ""
+          // );
           // console.log(postalCode.long_name, "postal code");
         } else {
           console.log("No results found");
@@ -137,7 +135,6 @@ const StepTwo = (props) => {
       display="flex"
       flexDirection="column"
       justifyContent="space-around "
-      // border="2px green solid"
       width={{ base: "100%", md: "80%", lg: "80%", xl: "80%", "2xl": "100%" }}
       maxW={{
         base: "95%",
@@ -148,7 +145,7 @@ const StepTwo = (props) => {
         "2xl": "600px",
       }}
       m="0 auto"
-      height="100%"
+      minHeight="100%"
       isRequired
     >
       <Box>
@@ -189,8 +186,66 @@ const StepTwo = (props) => {
               defaultValue={props.name}
             />
           </Box>
+
           <Box>
-            <FormLabel fontSize="18">Email Address </FormLabel>
+            <FormLabel fontSize="18">Surname</FormLabel>
+            <Input
+              type="text"
+              placeholder="Enter your surname"
+              fontSize="18px"
+              mt="8px"
+              padding="8px 15px "
+              borderRadius="6px"
+              outline="none"
+              width="100% "
+              border="1px solid  hsl(229, 24%, 87%)"
+              _placeholder={{
+                opacity: 0.8,
+                color: "gray.500",
+                fontFamily: "Ubuntu",
+              }}
+              onChange={(e) => {
+                props.setFormData({
+                  ...props.formData,
+                  surname: e.target.value,
+                });
+              }}
+              defaultValue={props.surname}
+            />
+          </Box>
+
+          <Box>
+            <FormLabel fontSize="18">Telephone </FormLabel>
+            <Input
+              type="text"
+              required
+              size="md"
+              fontSize="18px"
+              mt="8px"
+              borderRadius="6px "
+              outline="none"
+              padding="8px 15px "
+              border="1px solid  hsl(229, 24%, 87%)"
+              width="100% "
+              placeholder={
+                props?.telephone ? props?.telephone : "Enter telephone"
+              }
+              _placeholder={{
+                opacity: 0.8,
+                color: "gray.500",
+                fontFamily: "Ubuntu",
+              }}
+              onChange={(e) =>
+                props.setFormData({
+                  ...props.formData,
+                  telephone: e.target.value,
+                })
+              }
+            />
+          </Box>
+
+          <Box>
+            <FormLabel fontSize="18">Email </FormLabel>
             <Input
               type="text"
               size="md"
@@ -219,7 +274,7 @@ const StepTwo = (props) => {
 
           <Box position="relative">
             <FormLabel>Enter your Address </FormLabel>
-            <InputGroup mt="8px" border="1px solid  hsl(229, 24%, 87%)">
+            <InputGroup mt="10px" border="1px solid  hsl(229, 24%, 87%)">
               <Input
                 type="text"
                 size="md"
@@ -309,8 +364,9 @@ const StepTwo = (props) => {
               </Box>
             )}
           </Box>
+
           <Box>
-            <FormLabel fontSize="18">Zip code </FormLabel>
+            <FormLabel fontSize="18">Booking Number </FormLabel>
             <Input
               type="text"
               required
@@ -322,7 +378,11 @@ const StepTwo = (props) => {
               padding="8px 15px "
               border="1px solid  hsl(229, 24%, 87%)"
               width="100% "
-              placeholder={zipCode ? zipCode : "Enter your Zip code"}
+              placeholder={
+                props?.bookingNumber
+                  ? props?.bookingNumber
+                  : "Enter Booking Number"
+              }
               _placeholder={{
                 opacity: 0.8,
                 color: "gray.500",
@@ -331,7 +391,7 @@ const StepTwo = (props) => {
               onChange={(e) =>
                 props.setFormData({
                   ...props.formData,
-                  zipCode: e.target.value,
+                  telephone: e.target.value,
                 })
               }
               // defaultValue={zipCode}
@@ -340,7 +400,13 @@ const StepTwo = (props) => {
         </Stack>
       </Box>
 
-      <Box display="flex" justifyContent="space-between">
+      <Box
+        // border="2px red solid"
+        w="full"
+        m="40px auto"
+        display="flex"
+        justifyContent="space-between"
+      >
         <Button
           type="submit"
           color="white"

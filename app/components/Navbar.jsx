@@ -63,24 +63,9 @@ const Navbar = () => {
         bg={useColorModeValue("gray.100", "gray.900")}
         px={4}
       >
-        <Flex
-          h={16}
-          alignItems={"center"}
-          // flexDirection="row-reverse"
-          justifyContent={"space-between"}
-          // border="2px red solid"
-        >
+        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <HStack spacing={8} alignItems={"center"}>
             <Heading>Logo</Heading>
-            {/* <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack> */}
           </HStack>
           <Flex alignItems={"center"}>
             <HStack spacing={8} alignItems={"center"}>
@@ -195,9 +180,6 @@ const Navbar = () => {
                   </Link>
                 </ListItem>
               </List>
-              {/* {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))} */}
             </Stack>
           </Box>
         ) : null}

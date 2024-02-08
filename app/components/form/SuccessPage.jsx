@@ -34,6 +34,7 @@ const SuccessPage = () => {
         <Text
           fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
           color="hsl(231, 11%, 63%)"
+          textAlign="center"
         >
           Your information has been submitted successfully!
         </Text>

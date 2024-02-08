@@ -36,21 +36,24 @@ export default function Home() {
 
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [telephone, setTelephone] = useState("");
   const [flightNumber, setFlightNumber] = useState("");
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
+  const [bookingNumber, setBookingNumber] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [authMessage, setAuthMessage] = useState("");
   const [formData, setFormData] = useState({
     name,
+    surname,
     email,
-    // phone,
+    telephone,
     flightNumber,
     date,
     address,
-    zipCode,
+    bookingNumber,
   });
 
   const breakpoints = {
@@ -91,7 +94,6 @@ export default function Home() {
         xl: "100%",
         "2xl": "full",
       }}
-      // border="3px yellow solid"
       p="0"
     >
       <Container
@@ -105,14 +107,13 @@ export default function Home() {
           justifyContent="center"
           alignItems="center"
           h="100%"
-          // w={{ base: "40%", lg: "60%", xl: "40%" }}
-          // border="2px green solid "
         >
           <Heading color="#fff" fontSize="40px ">
             Home Page
           </Heading>
         </Box>
       </Container>
+
       <Container
         h="100vh"
         maxH="100%"
@@ -126,9 +127,6 @@ export default function Home() {
         }}
         alignItems="center"
         maxWidth="100%"
-        // m="5px 5px"
-        // overflow="hidden"
-        // border="2px crimson solid "
         p="0"
         m="0"
       >
@@ -139,8 +137,6 @@ export default function Home() {
           backgroundSize="cover"
           objectFit="cover"
           height={{ base: "30%", md: "100%" }}
-          // width="500px"
-          // maxW="40%"
           w={{
             base: "100%",
             sm: "100%",
@@ -157,7 +153,6 @@ export default function Home() {
             xl: "40%",
             "2xl": "40%",
           }}
-          // border="2px red solid "
         >
           <Stack
             direction={{ base: "row", md: "column" }}
@@ -166,7 +161,6 @@ export default function Home() {
             spacing="20px"
             mt="30px"
             p="20px"
-            // border="2px red solid "
           >
             <Flex alignItems="center" gap="20px">
               <Text
@@ -190,7 +184,12 @@ export default function Home() {
                 flexDirection="column"
                 gap="10px"
               >
-                <Heading color="white">Step 1 </Heading>
+                <Heading
+                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                  color="white"
+                >
+                  Step 1{" "}
+                </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
@@ -214,7 +213,12 @@ export default function Home() {
                 flexDirection="column"
                 gap="10px"
               >
-                <Heading color="white">Step 2 </Heading>
+                <Heading
+                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                  color="white"
+                >
+                  Step 2{" "}
+                </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
@@ -238,7 +242,12 @@ export default function Home() {
                 flexDirection="column"
                 gap="10px"
               >
-                <Heading color="white">Step 3 </Heading>
+                <Heading
+                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                  color="white"
+                >
+                  Step 3{" "}
+                </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
@@ -262,7 +271,12 @@ export default function Home() {
                 flexDirection="column"
                 gap="10px"
               >
-                <Heading color="white">Step 5 </Heading>
+                <Heading
+                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                  color="white"
+                >
+                  Step 5{" "}
+                </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
@@ -287,7 +301,12 @@ export default function Home() {
                 flexDirection="column"
                 gap="10px"
               >
-                <Heading color="white">Step 5 </Heading>
+                <Heading
+                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                  color="white"
+                >
+                  Step 5{" "}
+                </Heading>
                 <Text color="white">Your Info </Text>
               </Box>
             </Flex>
@@ -317,8 +336,12 @@ export default function Home() {
               email={email}
               address={address}
               setAddress={setAddress}
-              zipCode={zipCode}
-              setZipCode={setZipCode}
+              telephone={telephone}
+              setTelephone={setTelephone}
+              surname={surname}
+              setSurname={setSurname}
+              bookingNumber={bookingNumber}
+              setBookingNumber={setBookingNumber}
               formData={formData}
               setFormData={setFormData}
             />
