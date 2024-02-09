@@ -6,10 +6,10 @@ import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "multistep form",
-  description: "multistep form",
-};
+// export const metadata = {
+//   title: "multistep form",
+//   description: "multistep form",
+// };
 
 const theme = extendTheme({
   styles: {

@@ -77,11 +77,11 @@ export default function Home() {
         "2xl": "full",
       }}
       p="0"
-      overflow="hidden"
+      overflow-x="hidden"
     >
       <Container
         maxW={{ base: "100%", lg: "100%", xl: "100%" }}
-        overflow="hidden"
+        overflow-x="hidden"
         backgroundColor="black"
         h="70vh"
       >
