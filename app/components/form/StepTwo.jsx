@@ -10,6 +10,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
+import "./form.css";
+
 const StepTwo = (props) => {
   return (
     <AnimatePresence mode="wait">

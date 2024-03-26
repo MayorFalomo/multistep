@@ -17,10 +17,12 @@ import {
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 const StepSix = (props) => {
-  //? Parts of the code are commented out should in case you want to add more input boxes it's easier just uncomment it out
+  const [loading, setLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState("");
 
   const submitForm = async () => {
     try {
+      setLoading(true);
       var formData = new FormData();
       formData.append("flight_number", props.formData.flightNumber);
       formData.append("booking_number", props.formData.bookingNumber);
@@ -47,16 +49,32 @@ const StepSix = (props) => {
         },
       })
         .then((response) => {
-          //   console.log(response.data);
-          props.setStep(7);
+          if (response.status == 200) {
+            setLoading(false);
+            props.setStep(7);
+          } else {
+            console.log("Failed Error");
+            setLoading(false);
+            setTimeout(() => {
+              set;
+            }, 5000);
+          }
         })
         .catch((error) => {
           console.log(error);
-          props.setErrorMessage(true);
+          setErrMessage(true);
+          setTimeout(() => {
+            setErrMessage(false);
+          }, 4000);
+          setLoading(false);
         });
     } catch (error) {
       console.log(error);
-      props.setErrorMessage(true);
+      setErrMessage(true);
+      setTimeout(() => {
+        setErrMessage(false);
+      }, 4000);
+      setLoading(false);
     }
   };
 
@@ -96,90 +114,54 @@ const StepSix = (props) => {
               fontSize={{ base: "27px", lg: "35px", "2xl": "40px " }}
               colorScheme=" hsl(213, 96%, 18%) "
             >
-              Step Six
+              Review your Information
             </Heading>
-            <Text m="20px auto" color="hsl(231, 11%, 63%)">
-              {" "}
-              Go to Next Step
-            </Text>
-            {props.errorMessage ? (
-              <Text color="red" fontSize={{ base: "18px", xl: "20px" }}>
-                Sorry! An Error has occurred, Ensure you typed all your values
-                correctly{" "}
-                <Tag
-                  mt="4px"
-                  onClick={() => props.setStep(1)}
-                  cursor="pointer"
-                  color="blue"
-                >
-                  <TagLabel>Try Again </TagLabel>
-                </Tag>
+          </Box>
+          <Box>
+            <Stack spacing="20px">
+              <Text>
+                <b>Flight Number:</b> {props.formData.flightNumber}{" "}
               </Text>
-            ) : (
-              ""
-            )}
-            {/* <Stack spacing="20px ">
-          <Box>
-            <FormLabel fontSize="18">Name</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter your name"
-              fontSize="18px"
-              mt="8px"
-              padding="8px 15px "
-              borderRadius="6px"
-              outline="none"
-              width="100% "
-              border="1px solid  hsl(229, 24%, 87%)"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-            />
+              <Text>
+                <b>Date:</b> {props.formData.date}{" "}
+              </Text>
+              <Text>
+                <b>Booking Number:</b> {props.formData.bookingNumber}{" "}
+              </Text>
+              <Text>
+                <b>Name:</b> {props.formData.name}{" "}
+              </Text>
+              <Text>
+                <b>Surname:</b> {props.formData.surname}{" "}
+              </Text>
+              <Text>
+                <b>Address:</b> {props.formData.address}{" "}
+              </Text>
+              <Text>
+                <b>Telephone:</b> {props.formData.telephone}{" "}
+              </Text>
+              <Text>
+                <b>Email:</b> {props.formData.email}{" "}
+              </Text>
+              <Text>
+                <b>Bank Number:</b> {props.formData.ibanNumber}{" "}
+              </Text>
+            </Stack>
           </Box>
-          <Box>
-            <FormLabel fontSize="18">Email Adress </FormLabel>
-            <Input
-              type="text"
-              size="md"
-              fontSize="18px"
-              mt="8px"
-              borderRadius="6px "
-              outline="none"
-              padding="8px 15px "
-              border="1px solid  hsl(229, 24%, 87%)"
-              width="100% "
-              placeholder="Enter your email adress"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-            />
-          </Box>
-          <Box>
-            <FormLabel>Flight Number </FormLabel>
-            <Input
-              type="text"
-              size="md"
-              border="1px solid  hsl(229, 24%, 87%)"
-              fontSize="18px"
-              borderRadius="6px"
-              outline="none "
-              mt="8px"
-              padding="8px 15px "
-              width="100% "
-              placeholder="Enter Flight Number "
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-            />
-          </Box>
-        </Stack> */}
-          </Box>
+
+          {errMessage ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <Text textAlign="center" color="red">
+                Error Submitting Form
+              </Text>
+            </motion.div>
+          ) : (
+            ""
+          )}
           <Box display="flex" justifyContent="space-between">
             <Button
               type="submit"
@@ -198,23 +180,41 @@ const StepSix = (props) => {
             >
               Previous
             </Button>
-            <Button
-              type="submit"
-              color="white"
-              fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
-              borderRadius="7px "
-              backgroundColor="hsl(213, 96%, 18%)"
-              padding="10px 20px"
-              border="none"
-              outline="none"
-              cursor="pointer"
-              _hover={{
-                backgroundColor: "hsl(213, 96%, 50%)",
-              }}
-              onClick={submitForm}
-            >
-              submit
-            </Button>
+            {loading ? (
+              <Button
+                color="white"
+                borderRadius="7px "
+                fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+                backgroundColor="hsl(213, 96%, 18%)"
+                padding="10px 20px"
+                border="none"
+                outline="none"
+                cursor="pointer"
+                _hover={{
+                  backgroundColor: "hsl(213, 96%, 50%)",
+                }}
+              >
+                <span className="loader"></span>
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                color="white"
+                fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+                borderRadius="7px "
+                backgroundColor="hsl(213, 96%, 18%)"
+                padding="10px 20px"
+                border="none"
+                outline="none"
+                cursor="pointer"
+                _hover={{
+                  backgroundColor: "hsl(213, 96%, 50%)",
+                }}
+                onClick={submitForm}
+              >
+                submit
+              </Button>
+            )}
           </Box>
         </FormControl>
       </motion.div>

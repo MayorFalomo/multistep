@@ -6,14 +6,17 @@ import {
   Container,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   IconButton,
   Input,
   InputGroup,
   InputRightAddon,
+  ListItem,
   Stack,
   Text,
+  UnorderedList,
 } from "@chakra-ui/react";
 import {
   GoogleMap,
@@ -24,6 +27,11 @@ import {
 } from "@react-google-maps/api";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { AnimatePresence, motion } from "framer-motion";
+import "./form.css";
+import "react-international-phone/style.css";
+import axios from "axios";
+import { PhoneInput } from "react-international-phone";
+import { PhoneNumberUtil } from "google-libphonenumber";
 
 const StepThree = (props) => {
   const [map, setMap] = useState(null);
@@ -35,8 +43,12 @@ const StepThree = (props) => {
     lng: 8.761794333984389,
   });
   const [showGoogleMap, setShowGoogleMap] = useState(false);
+  const [validate, setValidate] = useState(false);
+  const [email, setEmail] = useState("");
   const [zipCode, setZipCode] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  const [fillFields, setFillFields] = useState(false);
+  const [phone, setPhone] = useState("");
   const containerStyle = {
     width: "100%",
     height: "400px",
@@ -78,6 +90,8 @@ const StepThree = (props) => {
 
   //Run this function when the button is clicked, the clicked Function fields would be set to the latitude and longitude
   const onClick = (e) => {
+    console.log("clicked");
+
     const clickedLocation = {
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
@@ -88,7 +102,7 @@ const StepThree = (props) => {
     geocoder.geocode({ location: clickedLocation }, (results, status) => {
       if (status == "OK") {
         if (results[0]) {
-          // console.log(results);
+          console.log(results[0].formatted_address);
           setAddressInfo(results[0].formatted_address); // Output the formatted address
           props.setFormData({
             ...props.formData,
@@ -119,6 +133,94 @@ const StepThree = (props) => {
       }
     });
   };
+
+  const phoneUtil = PhoneNumberUtil.getInstance();
+
+  const isPhoneValid = (phone) => {
+    try {
+      return phoneUtil.isValidNumber(phoneUtil.parseAndKeepRawInput(phone));
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const isValid = isPhoneValid(props.formData.telephone);
+
+  const submitForm = async () => {
+    console.log(props.formData, "prev formdata");
+    try {
+      setValidate(true);
+      setTimeout(() => {
+        setValidate(false);
+      }, 10000);
+
+      if (
+        props.formData.email &&
+        props.formData.name &&
+        props.formData.surname &&
+        props.formData.telephone &&
+        props.formData.address &&
+        isValid
+      ) {
+        setLoading(true);
+        // props?.setStep(4);
+        console.log(props.formData, "form data");
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "apikey",
+          `${process.env.NEXT_PUBLIC_API_KEY_Verify_Email}`
+        );
+
+        var requestOptions = {
+          method: "GET",
+          redirect: "follow",
+          headers: myHeaders,
+        };
+
+        await fetch(
+          `https://api.apilayer.com/email_verification/${props.formData.email}`,
+          requestOptions
+        )
+          .then((response) => {
+            if (response.status === 200) {
+              setLoading(false);
+              props?.setStep(4);
+            } else if (response.status === 401) {
+              setLoading(false);
+              console.log("Unauthorized - Invalid authentication credentials");
+            } else if (response.status === 400) {
+              setLoading(false);
+              console.log("Bad request - Invalid email format");
+            } else {
+              setLoading(false);
+              console.log(`An error occurred: ${response.status}`);
+            }
+          })
+          .catch((error) => console.log("error", error));
+      } else {
+        console.log("Please fill all the fields");
+        setFillFields(true);
+        setTimeout(() => {
+          setFillFields(false);
+        }, 4000);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  // const handleChange = (e) => {
+  //   props.setFormData({
+  //     ...props.formData,
+  //     telephone: e.target.value,
+  //   });
+  // };
+
+  console.log(isValid, "IsValid");
+  // console.log(props.address, "props.address");
+  // console.log(addressInfo, "AddressInfo");
+  // console.log(props.formData.telephone, "telephone formData");
 
   return (
     <AnimatePresence mode="wait">
@@ -168,13 +270,15 @@ const StepThree = (props) => {
                 <FormLabel fontSize="18">Name</FormLabel>
                 <Input
                   type="text"
-                  placeholder="Enter your name"
+                  isRequired
+                  placeholder={props.name ? props.name : "Enter your name"}
                   fontSize="18px"
                   mt="8px"
                   padding="8px 15px "
                   borderRadius="6px"
                   outline="none"
                   width="100% "
+                  textTransform="capitalize"
                   border="1px solid  hsl(229, 24%, 87%)"
                   _placeholder={{
                     opacity: 0.8,
@@ -195,7 +299,12 @@ const StepThree = (props) => {
                 <FormLabel fontSize="18">Surname</FormLabel>
                 <Input
                   type="text"
-                  placeholder="Enter your surname"
+                  placeholder={
+                    props.formData.surname
+                      ? props.formData.surname
+                      : "Enter your surname"
+                  }
+                  isRequired
                   fontSize="18px"
                   mt="8px"
                   padding="8px 15px "
@@ -203,6 +312,7 @@ const StepThree = (props) => {
                   outline="none"
                   width="100% "
                   border="1px solid  hsl(229, 24%, 87%)"
+                  textTransform="capitalize"
                   _placeholder={{
                     opacity: 0.8,
                     color: "gray.500",
@@ -223,8 +333,9 @@ const StepThree = (props) => {
                 <InputGroup mt="10px" border="1px solid  hsl(229, 24%, 87%)">
                   <Input
                     type="text"
+                    isRequired
                     size="md"
-                    disabled
+                    // disabled
                     border="none"
                     backgroundColor="white"
                     fontSize="18px"
@@ -243,8 +354,13 @@ const StepThree = (props) => {
                       props.setFormData({
                         ...props.formData,
                         address: addressInfo,
-                      });
+                      }) ||
+                        props.setFormData({
+                          ...props.formData,
+                          address: e.target.value,
+                        });
                     }}
+                    // defaultValue={props.formData.address}
                     defaultValue={addressInfo}
                   />
                   <InputRightAddon p="0">
@@ -314,38 +430,39 @@ const StepThree = (props) => {
 
               <Box>
                 <FormLabel fontSize="18">Telephone </FormLabel>
-                <Input
-                  type="text"
+
+                <PhoneInput
+                  defaultCountry="ng"
                   required
-                  size="md"
-                  fontSize="18px"
-                  mt="8px"
-                  borderRadius="6px "
-                  outline="none"
-                  padding="8px 15px "
-                  border="1px solid  hsl(229, 24%, 87%)"
-                  width="100% "
                   placeholder={
-                    props?.telephone ? props?.telephone : "Enter telephone"
+                    props?.formData.telephone
+                      ? props?.formData.telephone
+                      : "Enter telephone"
                   }
-                  _placeholder={{
-                    opacity: 0.8,
-                    color: "gray.500",
-                    fontFamily: "Ubuntu",
+                  style={{
+                    marginTop: "8px",
+                    fontSize: "18px",
+                    width: "100%",
+                    borderRadius: "6px",
+                    outline: "none",
                   }}
+                  inputStyle={{ width: "100%", padding: "10px 5px" }}
+                  value={props.formData.telephone}
+                  // onChange={handleChange}
                   onChange={(e) =>
                     props.setFormData({
                       ...props.formData,
-                      telephone: e.target.value,
+                      telephone: e,
                     })
                   }
+                  // onChange={(phone) => setPhone(phone)}
                 />
               </Box>
 
               <Box>
                 <FormLabel fontSize="18">Email </FormLabel>
                 <Input
-                  type="text"
+                  type="email"
                   size="md"
                   fontSize="18px"
                   mt="8px"
@@ -360,6 +477,7 @@ const StepThree = (props) => {
                     color: "gray.500",
                     fontFamily: "Ubuntu",
                   }}
+                  // onChange={(e) => setEmail(e.target.value)}
                   onChange={(e) => {
                     props.setFormData({
                       ...props.formData,
@@ -368,6 +486,107 @@ const StepThree = (props) => {
                   }}
                 />
               </Box>
+              {validate ? (
+                <motion.ul
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  style={{ color: "red", margin: "0 auto" }}
+                >
+                  {!props.formData.name ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *your name must be present*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+                  {!props.formData.surname ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *your surname must be present*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+
+                  {!props.formData.address ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *you must have an address*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+                  {!isValid ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *Use a valid telephone number*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+                  {!props.formData.telephone ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *your telephone must be present*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+                  {!props.formData.email ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *your email must be present*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+                  {props.formData.email.includes("@") == false ? (
+                    <motion.li
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                    >
+                      *your must use a valid email*
+                    </motion.li>
+                  ) : (
+                    ""
+                  )}
+                </motion.ul>
+              ) : (
+                ""
+              )}
+              {/* {fillFields ? (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  style={{ color: "red", textAlign: "center" }}
+                >
+                  *Please fill all necessary fields*{" "}
+                </motion.p>
+              ) : (
+                ""
+              )} */}
             </Stack>
           </Box>
 
@@ -378,7 +597,7 @@ const StepThree = (props) => {
             justifyContent="space-between"
           >
             <Button
-              type="submit"
+              // type="submit"
               color="white"
               fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
               borderRadius="7px "
@@ -394,23 +613,41 @@ const StepThree = (props) => {
             >
               Previous
             </Button>
-            <Button
-              type="submit"
-              color="white"
-              fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
-              borderRadius="7px "
-              backgroundColor="hsl(213, 96%, 18%)"
-              padding="10px 20px"
-              border="none"
-              outline="none"
-              cursor="pointer"
-              _hover={{
-                backgroundColor: "hsl(213, 96%, 50%)",
-              }}
-              onClick={() => props?.setStep(4)}
-            >
-              Next
-            </Button>
+            {loading ? (
+              <Button
+                color="white"
+                borderRadius="7px "
+                fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+                backgroundColor="hsl(213, 96%, 18%)"
+                padding="10px 20px"
+                border="none"
+                outline="none"
+                cursor="pointer"
+                _hover={{
+                  backgroundColor: "hsl(213, 96%, 50%)",
+                }}
+              >
+                <span className="loader"></span>
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                color="white"
+                fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+                borderRadius="7px "
+                backgroundColor="hsl(213, 96%, 18%)"
+                padding="10px 20px"
+                border="none"
+                outline="none"
+                cursor="pointer"
+                _hover={{
+                  backgroundColor: "hsl(213, 96%, 50%)",
+                }}
+                onClick={submitForm}
+              >
+                Next
+              </Button>
+            )}
           </Box>
         </FormControl>
       </motion.div>
