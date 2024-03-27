@@ -1,7 +1,7 @@
 "use client";
 import { Inter } from "next/font/google";
 // import "./globals.css";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });

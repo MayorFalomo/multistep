@@ -23,7 +23,7 @@ import {
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { Link } from "@chakra-ui/react";
-
+import "./Navbar.css";
 const Links = ["Home", "About", "Contact", "Form Page"];
 
 const NavLink = (props) => {
@@ -49,7 +49,7 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <>
+    <div>
       <Box
         position="fixed"
         top="0"
@@ -71,12 +71,19 @@ const Navbar = () => {
                 rounded={"md"}
                 _hover={{
                   textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
                 }}
+                className="hover-underline-animation"
                 fontSize={{ base: "16px", sm: "18px" }}
                 cursor="pointer "
               >
-                <Link as={NextLink} href="/">
+                <Link
+                  as={NextLink}
+                  _hover={{
+                    textDecoration: "none",
+                  }}
+                  textDecoration="none"
+                  href="/"
+                >
                   Home
                 </Link>
               </ListItem>
@@ -87,12 +94,20 @@ const Navbar = () => {
                 rounded={"md"}
                 _hover={{
                   textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
+                  // bg: useColorModeValue("gray.200", "gray.700"),
                 }}
                 fontSize={{ base: "16px", sm: "18px" }}
                 cursor="pointer "
+                className="hover-underline-animation"
               >
-                <Link as={NextLink} href="/about">
+                <Link
+                  as={NextLink}
+                  _hover={{
+                    textDecoration: "none",
+                  }}
+                  textDecoration="none"
+                  href="/about"
+                >
                   About{" "}
                 </Link>{" "}
               </ListItem>
@@ -103,12 +118,20 @@ const Navbar = () => {
                 rounded={"md"}
                 _hover={{
                   textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
+                  // bg: useColorModeValue("gray.200", "gray.700"),
                 }}
                 fontSize={{ base: "16px", sm: "18px" }}
                 cursor="pointer "
+                className="hover-underline-animation"
               >
-                <Link as={NextLink} href="/contact">
+                <Link
+                  as={NextLink}
+                  _hover={{
+                    textDecoration: "none",
+                  }}
+                  textDecoration="none"
+                  href="/contact"
+                >
                   Contact Us{" "}
                 </Link>
               </ListItem>
@@ -119,12 +142,20 @@ const Navbar = () => {
                 rounded={"md"}
                 _hover={{
                   textDecoration: "none",
-                  bg: useColorModeValue("gray.200", "gray.700"),
+                  // bg: useColorModeValue("gray.200", "gray.700"),
                 }}
                 fontSize={{ base: "16px", sm: "18px" }}
                 cursor="pointer "
+                className="hover-underline-animation"
               >
-                <Link as={NextLink} href="/formpage">
+                <Link
+                  as={NextLink}
+                  href="/formpage"
+                  _hover={{
+                    textDecoration: "none",
+                  }}
+                  textDecoration="none"
+                >
                   {" "}
                   Form Page
                 </Link>
@@ -171,14 +202,24 @@ const Navbar = () => {
                   px={2}
                   py={1}
                   rounded={"md"}
-                  _hover={{
-                    textDecoration: "none",
-                    bg: useColorModeValue("gray.200", "gray.700"),
-                  }}
                   fontSize={{ base: "16px", sm: "18px" }}
                   cursor="pointer "
+                  className="hover-underline-animation"
+                  _hover={{
+                    textDecoration: "none",
+                    // bg: useColorModeValue("gray.200", "gray.700"),
+                  }}
+                  // fontSize={{ base: "16px", sm: "18px" }}
+                  // cursor="pointer "
                 >
-                  <Link as={NextLink} href="/">
+                  <Link
+                    as={NextLink}
+                    _hover={{
+                      textDecoration: "none",
+                    }}
+                    textDecoration="none"
+                    href="/"
+                  >
                     Home
                   </Link>
                 </ListItem>
@@ -189,12 +230,20 @@ const Navbar = () => {
                   rounded={"md"}
                   _hover={{
                     textDecoration: "none",
-                    bg: useColorModeValue("gray.200", "gray.700"),
+                    // bg: useColorModeValue("gray.200", "gray.700"),
                   }}
                   fontSize={{ base: "16px", sm: "18px" }}
                   cursor="pointer "
+                  className="hover-underline-animation"
                 >
-                  <Link as={NextLink} href="/about">
+                  <Link
+                    as={NextLink}
+                    _hover={{
+                      textDecoration: "none",
+                    }}
+                    textDecoration="none"
+                    href="/about"
+                  >
                     About{" "}
                   </Link>{" "}
                 </ListItem>
@@ -205,12 +254,13 @@ const Navbar = () => {
                   rounded={"md"}
                   _hover={{
                     textDecoration: "none",
-                    bg: useColorModeValue("gray.200", "gray.700"),
+                    // bg: useColorModeValue("gray.200", "gray.700"),
                   }}
                   fontSize={{ base: "16px", sm: "18px" }}
                   cursor="pointer "
+                  className="hover-underline-animation"
                 >
-                  <Link as={NextLink} href="/contact">
+                  <Link as={NextLink} textDecoration="none" href="/contact">
                     Contact Us{" "}
                   </Link>
                 </ListItem>
@@ -221,12 +271,13 @@ const Navbar = () => {
                   rounded={"md"}
                   _hover={{
                     textDecoration: "none",
-                    bg: useColorModeValue("gray.200", "gray.700"),
+                    // bg: useColorModeValue("gray.200", "gray.700"),
                   }}
                   fontSize={{ base: "16px", sm: "18px" }}
                   cursor="pointer "
+                  className="hover-underline-animation"
                 >
-                  <Link as={NextLink} href="/formpage">
+                  <Link as={NextLink} textDecoration="none" href="/formpage">
                     {" "}
                     Form Page
                   </Link>
@@ -236,7 +287,7 @@ const Navbar = () => {
           </Box>
         ) : null}
       </Box>
-    </>
+    </div>
   );
 };
 
