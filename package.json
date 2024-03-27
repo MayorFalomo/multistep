@@ -22,6 +22,7 @@
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-international-phone": "^4.2.6"
+    "react-international-phone": "^4.2.6",
+    "react-lottie": "^1.2.4"
   }
 }
