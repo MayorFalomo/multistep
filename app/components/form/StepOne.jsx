@@ -15,8 +15,8 @@ import { useState } from "react";
 import "./form.css";
 const StepOne = (props) => {
   const [validate, setValidate] = useState(false);
-
   const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState(false);
   const [fillFields, setFillFields] = useState(false);
 
   const submitForm = async () => {
@@ -45,6 +45,13 @@ const StepOne = (props) => {
               setLoading(false);
 
               console.log(response, "User Not found");
+            } else if (response.status === 500) {
+              setLoading(false);
+              setServerError(true);
+              setTimeout(() => {
+                setServerError(false);
+              }, 5000);
+              console.log(response, "Server Error occured");
             } else {
               setLoading(false);
 
@@ -167,42 +174,53 @@ const StepOne = (props) => {
                 }}
               />
             </Box>
+
+            {validate ? (
+              <motion.ul
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{ color: "red", margin: "30px auto" }}
+              >
+                {!props.formData.flightNumber ? (
+                  <motion.li
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    *Add a flight number*
+                  </motion.li>
+                ) : (
+                  ""
+                )}
+                {!props.formData.date ? (
+                  <motion.li
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    *date must also be present*
+                  </motion.li>
+                ) : (
+                  ""
+                )}
+                {serverError ? (
+                  <motion.li
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    Server Error occurred
+                  </motion.li>
+                ) : (
+                  ""
+                )}
+              </motion.ul>
+            ) : (
+              ""
+            )}
           </Stack>
         </Box>
-
-        {validate ? (
-          <motion.ul
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{ color: "red", margin: "0 auto" }}
-          >
-            {!props.formData.flightNumber ? (
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                *Add a flight number*
-              </motion.li>
-            ) : (
-              ""
-            )}
-            {!props.formData.date ? (
-              <motion.li
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                *date must also be present*
-              </motion.li>
-            ) : (
-              ""
-            )}
-          </motion.ul>
-        ) : (
-          ""
-        )}
 
         <Box display="flex" justifyContent="flex-end">
           {loading ? (

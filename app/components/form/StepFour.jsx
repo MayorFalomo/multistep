@@ -31,7 +31,7 @@ const StepFour = (props) => {
         var myHeaders = new Headers();
         myHeaders.append(
           "apikey",
-          `${process.env.NEXT_PUBLIC_API_KEY_Banking}`
+          `${process.env.NEXT_PUBLIC_API_KEY_Banking_Number}`
         );
 
         var requestOptions = {
