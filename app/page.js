@@ -186,7 +186,7 @@ export default function Home() {
               ""
             )}
 
-            {step == 2 ? (
+            {step === 2 ? (
               <Flex alignItems="center" gap="20px">
                 <Text
                   border={step == 2 ? "none" : "2px white solid "}

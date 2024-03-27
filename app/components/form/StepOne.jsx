@@ -39,7 +39,6 @@ const StepOne = (props) => {
               console.log(response.json, "successful");
             } else if (response.status === 401) {
               setLoading(false);
-
               console.log(response, "The given user account is inactive");
             } else if (response.status === 404) {
               setLoading(false);
@@ -54,7 +53,6 @@ const StepOne = (props) => {
               console.log(response, "Server Error occured");
             } else {
               setLoading(false);
-
               console.log(`An error occurred: ${response.status}`);
             }
           })

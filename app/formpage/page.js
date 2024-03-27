@@ -30,6 +30,7 @@ const formpage = () => {
   const [date, setDate] = useState("");
   const [address, setAddress] = useState("");
   const [bookingNumber, setBookingNumber] = useState("");
+  const [ibanNumber, setIbanNumber] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,6 +42,7 @@ const formpage = () => {
     date,
     address,
     bookingNumber,
+    ibanNumber,
   });
 
   return (
@@ -134,160 +136,174 @@ const formpage = () => {
         >
           <Stack
             direction={{ base: "row", md: "column" }}
-            justifyContent={{ base: "center", md: "flex-start" }}
-            alignItems={{ base: "center", md: "flex-start" }}
+            justifyContent={{ base: "center", md: "center" }}
+            alignItems={{ base: "center", md: "center" }}
             spacing="20px"
             mt="30px"
             p="20px"
+            height="100%"
           >
-            <Flex alignItems="center" gap="20px">
-              <Text
-                border={step == 1 ? "none" : "2px white solid "}
-                width="40px"
-                height="40px"
-                borderRadius="50% "
-                colorScheme="black"
-                placeContent="center"
-                display="grid"
-                color="white"
-                cursor="pointer"
-                backgroundColor={step == 1 ? "hsl(228, 100%, 84%) " : ""}
-                onClick={() => setStep(1)}
-              >
-                {" "}
-                1
-              </Text>
-              <Box
-                display={{ base: "none", md: "flex" }}
-                flexDirection="column"
-                gap="10px"
-              >
-                <Heading
-                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+            {step == 1 && (
+              <Flex alignItems="center" gap="20px">
+                <Text
+                  border={step == 1 ? "none" : "2px white solid "}
+                  width="40px"
+                  height="40px"
+                  borderRadius="50% "
+                  colorScheme="black"
+                  placeContent="center"
+                  display="grid"
                   color="white"
+                  cursor="pointer"
+                  backgroundColor={step == 1 ? "hsl(228, 100%, 84%) " : ""}
+                  onClick={() => setStep(1)}
                 >
-                  Step 1{" "}
-                </Heading>
-                <Text color="white">Your Info </Text>
-              </Box>
-            </Flex>
-            <Flex alignItems="center" gap="20px">
-              <Text
-                border={step == 2 ? "none" : "2px white solid "}
-                width="40px"
-                height="40px"
-                borderRadius="50% "
-                color="white"
-                placeContent="center"
-                display="grid"
-                cursor="pointer"
-                backgroundColor={step == 2 ? "hsl(228, 100%, 84%) " : ""}
-                onClick={() => setStep(2)}
-              >
-                2{" "}
-              </Text>
-              <Box
-                display={{ base: "none", md: "flex" }}
-                flexDirection="column"
-                gap="10px"
-              >
-                <Heading
-                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
-                  color="white"
+                  {" "}
+                  1
+                </Text>
+                <Box
+                  display={{ base: "none", md: "flex" }}
+                  flexDirection="column"
+                  gap="10px"
                 >
-                  Step 2{" "}
-                </Heading>
-                <Text color="white">Your Info </Text>
-              </Box>
-            </Flex>
-            <Flex alignItems="center" gap="20px">
-              <Text
-                border={step == 3 ? "none" : "2px white solid "}
-                width="40px"
-                height="40px"
-                borderRadius="50% "
-                color="white"
-                placeContent="center"
-                display="grid"
-                cursor="pointer"
-                backgroundColor={step == 3 ? "hsl(228, 100%, 84%) " : ""}
-                onClick={() => setStep(3)}
-              >
-                3{" "}
-              </Text>
-              <Box
-                display={{ base: "none", md: "flex" }}
-                flexDirection="column"
-                gap="10px"
-              >
-                <Heading
-                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
-                  color="white"
-                >
-                  Step 3{" "}
-                </Heading>
-                <Text color="white">Your Info </Text>
-              </Box>
-            </Flex>
-            <Flex alignItems="center" gap="20px">
-              <Text
-                border={step == 4 ? "none" : "2px white solid "}
-                width="40px"
-                height="40px"
-                borderRadius="50% "
-                color="white"
-                cursor="pointer"
-                placeContent="center"
-                display="grid"
-                backgroundColor={step == 4 ? "hsl(228, 100%, 84%) " : ""}
-                onClick={() => setStep(4)}
-              >
-                4{" "}
-              </Text>
-              <Box
-                display={{ base: "none", md: "flex" }}
-                flexDirection="column"
-                gap="10px"
-              >
-                <Heading
-                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
-                  color="white"
-                >
-                  Step 4{" "}
-                </Heading>
-                <Text color="white">Your Info </Text>
-              </Box>
-            </Flex>
+                  <Heading
+                    fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                    color="white"
+                  >
+                    Step 1{" "}
+                  </Heading>
+                  <Text color="white">Your Info </Text>
+                </Box>
+              </Flex>
+            )}
 
-            <Flex alignItems="center" gap="20px">
-              <Text
-                border={step == 5 ? "none" : "2px white solid "}
-                width="40px"
-                height="40px"
-                borderRadius="50% "
-                color="white"
-                cursor="pointer"
-                placeContent="center"
-                display="grid"
-                backgroundColor={step == 5 ? "hsl(228, 100%, 84%) " : ""}
-                onClick={() => setStep(5)}
-              >
-                5{" "}
-              </Text>
-              <Box
-                display={{ base: "none", md: "flex" }}
-                flexDirection="column"
-                gap="10px"
-              >
-                <Heading
-                  fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+            {step == 2 && (
+              <Flex alignItems="center" gap="20px">
+                <Text
+                  border={step == 2 ? "none" : "2px white solid "}
+                  width="40px"
+                  height="40px"
+                  borderRadius="50% "
                   color="white"
+                  placeContent="center"
+                  display="grid"
+                  cursor="pointer"
+                  backgroundColor={step == 2 ? "hsl(228, 100%, 84%) " : ""}
+                  onClick={() => setStep(2)}
                 >
-                  Step 5{" "}
-                </Heading>
-                <Text color="white">Your Info </Text>
-              </Box>
-            </Flex>
+                  2{" "}
+                </Text>
+                <Box
+                  display={{ base: "none", md: "flex" }}
+                  flexDirection="column"
+                  gap="10px"
+                >
+                  <Heading
+                    fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                    color="white"
+                  >
+                    Step 2{" "}
+                  </Heading>
+                  <Text color="white">Your Info </Text>
+                </Box>
+              </Flex>
+            )}
+
+            {step == 3 && (
+              <Flex alignItems="center" gap="20px">
+                <Text
+                  border={step == 3 ? "none" : "2px white solid "}
+                  width="40px"
+                  height="40px"
+                  borderRadius="50% "
+                  color="white"
+                  placeContent="center"
+                  display="grid"
+                  cursor="pointer"
+                  backgroundColor={step == 3 ? "hsl(228, 100%, 84%) " : ""}
+                  onClick={() => setStep(3)}
+                >
+                  3{" "}
+                </Text>
+                <Box
+                  display={{ base: "none", md: "flex" }}
+                  flexDirection="column"
+                  gap="10px"
+                >
+                  <Heading
+                    fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                    color="white"
+                  >
+                    Step 3{" "}
+                  </Heading>
+                  <Text color="white">Your Info </Text>
+                </Box>
+              </Flex>
+            )}
+
+            {step == 4 && (
+              <Flex alignItems="center" gap="20px">
+                <Text
+                  border={step == 4 ? "none" : "2px white solid "}
+                  width="40px"
+                  height="40px"
+                  borderRadius="50% "
+                  color="white"
+                  cursor="pointer"
+                  placeContent="center"
+                  display="grid"
+                  backgroundColor={step == 4 ? "hsl(228, 100%, 84%) " : ""}
+                  onClick={() => setStep(4)}
+                >
+                  4{" "}
+                </Text>
+                <Box
+                  display={{ base: "none", md: "flex" }}
+                  flexDirection="column"
+                  gap="10px"
+                >
+                  <Heading
+                    fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                    color="white"
+                  >
+                    Step 4{" "}
+                  </Heading>
+                  <Text color="white">Your Info </Text>
+                </Box>
+              </Flex>
+            )}
+
+            {step == 5 && (
+              <Flex alignItems="center" gap="20px">
+                <Text
+                  border={step == 5 ? "none" : "2px white solid "}
+                  width="40px"
+                  height="40px"
+                  borderRadius="50% "
+                  color="white"
+                  cursor="pointer"
+                  placeContent="center"
+                  display="grid"
+                  backgroundColor={step == 5 ? "hsl(228, 100%, 84%) " : ""}
+                  onClick={() => setStep(5)}
+                >
+                  5{" "}
+                </Text>
+                <Box
+                  display={{ base: "none", md: "flex" }}
+                  flexDirection="column"
+                  gap="10px"
+                >
+                  <Heading
+                    fontSize={{ base: "30px", lg: "30px", "2xl": "35px " }}
+                    color="white"
+                  >
+                    Step 5{" "}
+                  </Heading>
+                  <Text color="white">Your Info </Text>
+                </Box>
+              </Flex>
+            )}
           </Stack>
         </Box>
 
@@ -329,7 +345,11 @@ const formpage = () => {
             />
           )}
           {step == 4 && (
-            <StepFour setStep={setStep} setFormData={setFormData} />
+            <StepFour
+              setStep={setStep}
+              setFormData={setFormData}
+              ibanNumber={ibanNumber}
+            />
           )}
           {step == 5 && (
             <StepFive

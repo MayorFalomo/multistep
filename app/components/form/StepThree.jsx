@@ -217,11 +217,6 @@ const StepThree = (props) => {
   //   });
   // };
 
-  console.log(isValid, "IsValid");
-  // console.log(props.address, "props.address");
-  // console.log(addressInfo, "AddressInfo");
-  // console.log(props.formData.telephone, "telephone formData");
-
   return (
     <AnimatePresence mode="wait">
       <motion.div
