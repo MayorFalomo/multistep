@@ -1,18 +1,10 @@
 import { Box, Container, Heading, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import Lottie from "react-lottie";
 import animationData from "./animationData.json"; // Import local JSON file
 const SuccessPage = () => {
-  const animationContainer = useRef(null);
-
-  const lottieRef = useRef();
-
-  const [isStopped, setIsStopped] = useState(true);
-  const [isPaused, setIsPaused] = useState(true);
-
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -46,8 +38,6 @@ const SuccessPage = () => {
               minHeight: "250px",
               minWidth: "100%",
             }}
-            // minHeight="250px"
-            // minW="100%"
           >
             <Lottie options={defaultOptions} maxHeight={400} maxWidth={400} />
 

@@ -142,8 +142,8 @@ export default function Home() {
           <Stack
             direction={{ base: "row", md: "column" }}
             wrap={{ base: "wrap", md: "none" }}
-            justifyContent={{ base: "flex-start", md: "center" }}
-            alignItems={{ base: "flex-start", md: "center" }}
+            justifyContent={{ base: "center", md: "center" }}
+            alignItems={{ base: "center", md: "center" }}
             spacing="20px"
             // mt="30px"
             p="20px"
