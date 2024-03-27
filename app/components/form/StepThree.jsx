@@ -449,7 +449,11 @@ const StepThree = (props) => {
                     borderRadius: "6px",
                     outline: "none",
                   }}
-                  inputStyle={{ width: "100%", padding: "10px 5px" }}
+                  inputStyle={{
+                    width: "100%",
+                    padding: "10px 5px",
+                    fontSize: "18px",
+                  }}
                   value={props.formData.telephone}
                   // onChange={handleChange}
                   onChange={(e) =>
