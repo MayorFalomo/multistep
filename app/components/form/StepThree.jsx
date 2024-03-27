@@ -271,7 +271,11 @@ const StepThree = (props) => {
                 <Input
                   type="text"
                   isRequired
-                  placeholder={props.name ? props.name : "Enter your name"}
+                  placeholder={
+                    props.formData.name
+                      ? props.formData.name
+                      : "Enter your name"
+                  }
                   fontSize="18px"
                   mt="8px"
                   padding="8px 15px "
@@ -291,7 +295,7 @@ const StepThree = (props) => {
                       name: e.target.value,
                     });
                   }}
-                  defaultValue={props.name}
+                  defaultValue={props.formData.name}
                 />
               </Box>
 
@@ -344,7 +348,11 @@ const StepThree = (props) => {
                     outline="none "
                     padding="8px 15px "
                     width="100% "
-                    placeholder={addressInfo ? addressInfo : "Enter address "}
+                    placeholder={
+                      props.formData.address
+                        ? props.formData.address
+                        : "Enter address "
+                    }
                     _placeholder={{
                       opacity: 0.8,
                       color: "gray.500",
@@ -361,7 +369,7 @@ const StepThree = (props) => {
                         });
                     }}
                     // defaultValue={props.formData.address}
-                    defaultValue={addressInfo}
+                    defaultValue={props.formData.address}
                   />
                   <InputRightAddon p="0">
                     <IconButton
@@ -471,7 +479,9 @@ const StepThree = (props) => {
                   padding="8px 15px "
                   border="1px solid  hsl(229, 24%, 87%)"
                   width="100% "
-                  placeholder="Enter email"
+                  placeholder={
+                    props.formData.email ? props.formData.email : "Enter email"
+                  }
                   _placeholder={{
                     opacity: 0.8,
                     color: "gray.500",
