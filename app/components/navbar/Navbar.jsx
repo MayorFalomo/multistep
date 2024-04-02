@@ -19,6 +19,7 @@ import {
   ListItem,
   List,
   Heading,
+  Select,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
@@ -65,6 +66,13 @@ const Navbar = () => {
           </HStack>
           <Flex alignItems={"center"}>
             <List display={{ base: "none", md: "flex" }}>
+              <ListItem>
+                <Select cursor="pointer" placeholder="Select Language">
+                  <option value="option1">English</option>
+                  <option value="option2">Spanish</option>
+                  <option value="option3">French</option>
+                </Select>
+              </ListItem>
               <ListItem
                 px={2}
                 py={1}
@@ -198,6 +206,11 @@ const Navbar = () => {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               <List>
+                <Select placeholder="Select Language">
+                  <option value="option1">English</option>
+                  <option value="option2">Spanish</option>
+                  <option value="option3">French</option>
+                </Select>
                 <ListItem
                   px={2}
                   py={1}

@@ -25,7 +25,9 @@ const StepFour = (props) => {
       console.log(props.formData);
 
       if (props.formData.ibanNumber) {
-        setLoading(true);
+        props?.setStep(8);
+
+        // setLoading(true);
         var myHeaders = new Headers();
         myHeaders.append(
           "apikey",
@@ -43,20 +45,24 @@ const StepFour = (props) => {
           requestOptions
         )
           .then((response) => {
+            console.log(response.status, "status");
             if (response.status === 200) {
               console.log(response.text());
               setLoading(false);
               props?.setStep(5);
             } else if (response.status === 422) {
-              setLoading(false);
+              // setLoading(false);
+              setValidate(true);
+              console.log(validate);
+              props?.setStep(4);
               console.log(response, "error: Bad Request");
 
-              setValidate(true);
               setTimeout(() => {
                 setValidate(false);
               }, 5000);
             } else if (response.status === 404) {
               setLoading(false);
+              props?.setStep(4);
               console.log(response, "Not found");
 
               setValidate(true);
@@ -65,13 +71,23 @@ const StepFour = (props) => {
               }, 5000);
             } else {
               setLoading(false);
+              setValidate(true);
 
+              setTimeout(() => {
+                setValidate(false);
+              }, 5000);
               console.log(`An error occurred: ${response.status}`);
             }
           })
-          .catch((error) => console.log("error", error) && setLoading(false));
+          .catch(
+            (error) =>
+              console.log("error", error) &&
+              setLoading(false) &&
+              props?.setStep(4)
+          );
       } else {
         setLoading(false);
+        props?.setStep(4);
         setFillFields(true);
         setTimeout(() => {
           setFillFields(false);
@@ -81,6 +97,8 @@ const StepFour = (props) => {
       console.error("Error validating IBAN:", error);
     }
   };
+
+  console.log(validate, "Validate");
 
   return (
     <AnimatePresence mode="wait">

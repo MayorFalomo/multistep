@@ -162,8 +162,8 @@ const StepThree = (props) => {
         props.formData.address &&
         isValid
       ) {
-        setLoading(true);
-        // props?.setStep(4);
+        // setLoading(true);
+        props?.setStep(8);
         console.log(props.formData, "form data");
         var myHeaders = new Headers();
         myHeaders.append(

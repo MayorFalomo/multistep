@@ -28,7 +28,8 @@ const StepOne = (props) => {
     }, 7000);
 
     if (props.formData.flightNumber && props.formData.date) {
-      setLoading(true);
+      // setLoading(true);
+      props?.setStep(8);
 
       try {
         await fetch(url)

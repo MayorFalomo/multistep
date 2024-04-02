@@ -17,9 +17,10 @@ import StepFour from "./components/form/StepFour";
 import StepFive from "./components/form/StepFive";
 import SuccessPage from "./components/form/SuccessPage";
 import StepSix from "./components/form/StepSix";
+import { Loading } from "./components/form/Loading";
 
 export default function Home() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -416,6 +417,7 @@ export default function Home() {
           {step == 7 && (
             <SuccessPage setStep={setStep} setFormData={setFormData} />
           )}
+          {step == 8 && <Loading setStep={setStep} setFormData={setFormData} />}
         </Container>
       </Container>
     </Container>
