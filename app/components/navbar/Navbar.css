@@ -10,7 +10,7 @@
     width: 100%;
     transform: scaleX(0);
     height: 2px;
-    bottom: -4px;
+    bottom: 6px;
     left: 0;
     background-color: #000;
     transform-origin: bottom right;

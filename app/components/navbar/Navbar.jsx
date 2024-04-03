@@ -68,9 +68,9 @@ const Navbar = () => {
             <List display={{ base: "none", md: "flex" }}>
               <ListItem>
                 <Select cursor="pointer" placeholder="Select Language">
-                  <option value="option1">English</option>
-                  <option value="option2">Spanish</option>
-                  <option value="option3">French</option>
+                  <option value="English">English</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="French">French</option>
                 </Select>
               </ListItem>
               <ListItem
