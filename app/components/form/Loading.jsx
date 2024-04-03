@@ -32,7 +32,9 @@ export const Loading = () => {
               // border="2px red solid"
               width="100%"
             >
-              <Text fontSize={{ md: "20px", lg: "24px", xl: "28px" }}>
+              <Text
+                fontSize={{ base: "20px", md: "22px", lg: "24px", xl: "28px" }}
+              >
                 While Loading...
               </Text>
               {/* <Text className="lineLoad"></Text>{" "} */}
