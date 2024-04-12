@@ -49,14 +49,20 @@ const StepFive = (props) => {
       })
         .then((res) => {
           setSignUrl(res.data.url);
-          // setConfirmedSignature(false);
+          setConfirmedSignature(false);
+          setTimeout(() => {
+            setConfirmedSignature(false);
+          }, 4000);
         })
         .catch((err) => {
-          console.log(err), setConfirmedSignature(false);
+          console.log(err), setConfirmedSignature(true);
+          setTimeout(() => {
+            setConfirmedSignature(false);
+          }, 4000);
         });
     } catch (err) {
       console.log(err);
-      setConfirmedSignature(false);
+      setConfirmedSignature(true);
     }
   };
 
@@ -126,6 +132,7 @@ const StepFive = (props) => {
           Go to Next Step
         </Text>
       </Box>
+
       {!signUrl && (
         <Stack justifyContent="center" direction="row" spacing={4}>
           <Text>While Loading </Text>
@@ -138,6 +145,13 @@ const StepFive = (props) => {
             size="md"
           />
         </Stack>
+      )}
+
+      {confirmedSignature && (
+        <motion.div>
+          {" "}
+          <Text>Seems an Error has occurred </Text>
+        </motion.div>
       )}
 
       <Box display="flex" justifyContent="space-between">

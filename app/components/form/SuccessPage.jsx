@@ -18,8 +18,6 @@ const SuccessPage = () => {
 
   const router = usePathname();
 
-  console.log(router);
-
   return (
     <AnimatePresence mode="wait">
       <Container

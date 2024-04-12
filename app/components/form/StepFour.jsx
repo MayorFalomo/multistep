@@ -22,7 +22,7 @@ const StepFour = (props) => {
 
   const handleValidation = async () => {
     try {
-      console.log(props.formData);
+      // console.log(props.formData);
 
       if (props.formData.ibanNumber) {
         props?.setStep(8);
@@ -47,13 +47,13 @@ const StepFour = (props) => {
           .then((response) => {
             console.log(response.status, "status");
             if (response.status === 200) {
-              console.log(response.text());
+              // console.log(response.text());
               setLoading(false);
               props?.setStep(5);
             } else if (response.status === 422) {
-              // setLoading(false);
+              setLoading(false);
               setValidate(true);
-              console.log(validate);
+              // console.log(validate);
               props?.setStep(4);
               console.log(response, "error: Bad Request");
 
@@ -79,12 +79,10 @@ const StepFour = (props) => {
               console.log(`An error occurred: ${response.status}`);
             }
           })
-          .catch(
-            (error) =>
-              console.log("error", error) &&
-              setLoading(false) &&
-              props?.setStep(4)
-          );
+          .catch((error) => {
+            console.log("error", error), setLoading(false);
+            props?.setStep(4);
+          });
       } else {
         setLoading(false);
         props?.setStep(4);
@@ -97,8 +95,6 @@ const StepFour = (props) => {
       console.error("Error validating IBAN:", error);
     }
   };
-
-  console.log(validate, "Validate");
 
   return (
     <AnimatePresence mode="wait">

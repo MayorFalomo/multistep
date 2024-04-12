@@ -147,7 +147,7 @@ const StepThree = (props) => {
   const isValid = isPhoneValid(props.formData.telephone);
 
   const submitForm = async () => {
-    console.log(props.formData, "prev formdata");
+    // console.log(props.formData, "prev formdata");
     try {
       setValidate(true);
       setTimeout(() => {
