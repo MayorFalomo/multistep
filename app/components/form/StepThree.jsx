@@ -164,7 +164,7 @@ const StepThree = (props) => {
       ) {
         // setLoading(true);
         props?.setStep(8);
-        console.log(props.formData, "form data");
+        // console.log(props.formData, "form data");
         var myHeaders = new Headers();
         myHeaders.append(
           "apikey",
@@ -187,16 +187,20 @@ const StepThree = (props) => {
               props?.setStep(4);
             } else if (response.status === 401) {
               setLoading(false);
+              props?.setStep(3);
               console.log("Unauthorized - Invalid authentication credentials");
             } else if (response.status === 400) {
               setLoading(false);
+              props?.setStep(3);
               console.log("Bad request - Invalid email format");
             } else {
               setLoading(false);
+              props?.setStep(3);
+
               console.log(`An error occurred: ${response.status}`);
             }
           })
-          .catch((error) => console.log("error", error));
+          .catch((error) => console.log("error", error) && props?.setStep(3));
       } else {
         console.log("Please fill all the fields");
         setFillFields(true);
@@ -206,6 +210,7 @@ const StepThree = (props) => {
       }
     } catch (error) {
       setLoading(false);
+      props?.setStep(3);
       console.log(error);
     }
   };

@@ -20,7 +20,7 @@ import StepSix from "./components/form/StepSix";
 import { Loading } from "./components/form/Loading";
 
 export default function Home() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");

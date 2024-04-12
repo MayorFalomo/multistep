@@ -37,16 +37,17 @@ const StepOne = (props) => {
             if (response.status === 200) {
               setLoading(false);
               props?.setStep(2);
-              console.log(response.json, "successful");
             } else if (response.status === 401) {
               setLoading(false);
+              props?.setStep(1);
               console.log(response, "The given user account is inactive");
             } else if (response.status === 404) {
               setLoading(false);
-
+              props?.setStep(1);
               console.log(response, "User Not found");
             } else if (response.status === 500) {
               setLoading(false);
+              props?.setStep(1);
               setServerError(true);
               setTimeout(() => {
                 setServerError(false);
@@ -54,13 +55,17 @@ const StepOne = (props) => {
               console.log(response, "Server Error occured");
             } else {
               setLoading(false);
+              props?.setStep(1);
               console.log(`An error occurred: ${response.status}`);
             }
           })
-          .catch((error) => console.log("error", error) && setLoading(false));
+          .catch((error) => {
+            console.log("error", error), setLoading(false), props?.setStep(1);
+          });
       } catch (error) {
         console.log(error);
         setLoading(false);
+        props?.setStep(1);
       }
     }
   };

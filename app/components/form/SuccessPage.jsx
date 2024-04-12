@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import Lottie from "react-lottie";
 import animationData from "./animationData.json"; // Import local JSON file
+import { usePathname } from "next/navigation";
 const SuccessPage = () => {
   const defaultOptions = {
     loop: false,
@@ -14,6 +15,10 @@ const SuccessPage = () => {
     },
     initialSegment: [3, 50],
   };
+
+  const router = usePathname();
+
+  console.log(router);
 
   return (
     <AnimatePresence mode="wait">
@@ -39,7 +44,7 @@ const SuccessPage = () => {
               minWidth: "100%",
             }}
           >
-            <Lottie options={defaultOptions} maxHeight={400} maxWidth={400} />
+            <Lottie options={defaultOptions} maxHeight={360} maxWidth={360} />
 
             {/* <Image
             boxSize="150px"
@@ -61,16 +66,19 @@ const SuccessPage = () => {
           >
             Your information has been submitted successfully!
           </Text>
-          <Link href="/">
-            {" "}
-            <Text
-              fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
-              colorScheme="hsl(213, 96%, 18%)"
-              color="blue"
-            >
-              Go back to home{" "}
-            </Text>{" "}
-          </Link>
+          {router == "/" ? (
+            ""
+          ) : (
+            <Link href="/">
+              <Text
+                fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
+                colorScheme="hsl(213, 96%, 18%)"
+                color="blue"
+              >
+                Go back to home{" "}
+              </Text>{" "}
+            </Link>
+          )}
         </Box>
       </Container>
     </AnimatePresence>

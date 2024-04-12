@@ -41,9 +41,8 @@ const StepSix = (props) => {
 
       await axios({
         method: "POST",
-        url: "https://apps.converter.bloombyte.dev/submit-flight/",
+        url: "https://be.flightapp.bloombyte.dev/submit-flight/",
         data: formData,
-
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,11 +9,87 @@ import {
   FormLabel,
   Heading,
   Input,
+  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
+import axios from "axios";
+import "./form.css";
 const StepFive = (props) => {
-  //*Things are commented out here in case you need input boxes so you can just uncomment and use
+  const [confirmedSignature, setConfirmedSignature] = useState(false);
+  const [signUrl, setSignUrl] = useState("");
+
+  //seEffect to run the getSignature function on page load
+  useEffect(() => {
+    getSignature();
+  }, []);
+
+  //Function to submit formData info to the create-signature url
+  const getSignature = async () => {
+    try {
+      var formData = new FormData();
+      formData.append("flight_number", props.formData.flightNumber);
+      formData.append("booking_number", props.formData.bookingNumber);
+      formData.append("name", props.formData.name);
+      formData.append("surname", props.formData.surname);
+      formData.append("email", props.formData.email);
+      formData.append("date", props.formData.date);
+      formData.append("address", props.formData.address);
+      formData.append("phone", props.formData.telephone);
+      formData.append("address", props.formData.address);
+
+      const baseUrl = "https://be.flightapp.bloombyte.dev";
+      await axios({
+        method: "POST",
+        url: `${baseUrl}/create-signature/`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) => {
+          setSignUrl(res.data.url);
+          // setConfirmedSignature(false);
+        })
+        .catch((err) => {
+          console.log(err), setConfirmedSignature(false);
+        });
+    } catch (err) {
+      console.log(err);
+      setConfirmedSignature(false);
+    }
+  };
+
+  //UseEffect to load Iframe
+  useEffect(() => {
+    const iframe = document.createElement("iframe");
+    iframe.src = signUrl;
+    iframe.style.cssText =
+      "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; height: 90%; width: 90%; border: none;";
+    document.body.appendChild(iframe);
+
+    //!Function to listen for events and run actions accordingly
+    const messageHandler = (e) => {
+      if (e.data.event === "completed") {
+        // console.log(e.data.event, "event");
+        // console.log(e.data.documentId, "documentId");
+        // console.log(e.data.signatureId, "signatureId");
+        props.setStep(6);
+        document.body.removeChild(iframe);
+        window.removeEventListener("message", messageHandler); //Then Remove the event listener
+      }
+    };
+
+    window.addEventListener("message", messageHandler);
+
+    return () => {
+      window.removeEventListener("message", messageHandler);
+      if (document.body.contains(iframe)) {
+        document.body.removeChild(iframe);
+      }
+    };
+  }, [signUrl]);
+
   return (
     <FormControl
       display="flex"
@@ -49,68 +125,21 @@ const StepFive = (props) => {
           {" "}
           Go to Next Step
         </Text>
-        {/* <Stack spacing="20px ">
-          <Box>
-            <FormLabel fontSize="18">Name</FormLabel>
-            <Input
-              type="text"
-              placeholder="Enter your name"
-              fontSize="18px"
-              mt="8px"
-              padding="8px 15px "
-              borderRadius="6px"
-              outline="none"
-              width="100% "
-              border="1px solid  hsl(229, 24%, 87%)"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-            />
-          </Box>
-          <Box>
-            <FormLabel fontSize="18">Email Adress </FormLabel>
-            <Input
-              type="text"
-              size="md"
-              fontSize="18px"
-              mt="8px"
-              borderRadius="6px "
-              outline="none"
-              padding="8px 15px "
-              border="1px solid  hsl(229, 24%, 87%)"
-              width="100% "
-              placeholder="Enter your email adress"
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-            />
-          </Box>
-          <Box>
-            <FormLabel>Flight Number </FormLabel>
-            <Input
-              type="text"
-              size="md"
-              border="1px solid  hsl(229, 24%, 87%)"
-              fontSize="18px"
-              borderRadius="6px"
-              outline="none "
-              mt="8px"
-              padding="8px 15px "
-              width="100% "
-              placeholder="Enter Flight Number "
-              _placeholder={{
-                opacity: 0.8,
-                color: "gray.500",
-                fontFamily: "Ubuntu",
-              }}
-            />
-          </Box>
-        </Stack> */}
       </Box>
+      {!signUrl && (
+        <Stack justifyContent="center" direction="row" spacing={4}>
+          <Text>While Loading </Text>
+
+          <Spinner
+            thickness="3px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="gray.500"
+            size="md"
+          />
+        </Stack>
+      )}
+
       <Box display="flex" justifyContent="space-between">
         <Button
           type="submit"
