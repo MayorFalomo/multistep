@@ -21,7 +21,7 @@ import { Loading } from "./components/form/Loading";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Home() {
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
