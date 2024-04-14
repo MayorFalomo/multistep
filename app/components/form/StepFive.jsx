@@ -15,10 +15,13 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import "./form.css";
+import { AnimatePresence, motion } from "framer-motion";
+import { CloseIcon } from "@chakra-ui/icons";
+
 const StepFive = (props) => {
   const [confirmedSignature, setConfirmedSignature] = useState(false);
   const [signUrl, setSignUrl] = useState("");
-
+  const [close, setClose] = useState(false);
   //seEffect to run the getSignature function on page load
   useEffect(() => {
     getSignature();
@@ -26,6 +29,7 @@ const StepFive = (props) => {
 
   //Function to submit formData info to the create-signature url
   const getSignature = async () => {
+    setClose(true);
     try {
       var formData = new FormData();
       formData.append("flight_number", props.formData.flightNumber);
@@ -50,19 +54,18 @@ const StepFive = (props) => {
         .then((res) => {
           setSignUrl(res.data.url);
           setConfirmedSignature(false);
-          setTimeout(() => {
-            setConfirmedSignature(false);
-          }, 4000);
         })
         .catch((err) => {
           console.log(err), setConfirmedSignature(true);
-          setTimeout(() => {
-            setConfirmedSignature(false);
-          }, 4000);
+          setSignUrl(true);
+          // setTimeout(() => {
+          //   setConfirmedSignature(false);
+          // }, 5000);
         });
     } catch (err) {
       console.log(err);
       setConfirmedSignature(true);
+      setSignUrl(true);
     }
   };
 
@@ -95,6 +98,11 @@ const StepFive = (props) => {
       }
     };
   }, [signUrl]);
+
+  const removeIframe = () => {
+    document.body.removeChild(document.querySelector("iframe"));
+    setClose(false);
+  };
 
   return (
     <FormControl
@@ -133,7 +141,7 @@ const StepFive = (props) => {
         </Text>
       </Box>
 
-      {!signUrl && (
+      {!signUrl ? (
         <Stack justifyContent="center" direction="row" spacing={4}>
           <Text>While Loading </Text>
 
@@ -145,13 +153,50 @@ const StepFive = (props) => {
             size="md"
           />
         </Stack>
+      ) : (
+        " "
       )}
 
       {confirmedSignature && (
-        <motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          style={{
+            color: "red",
+            textAlign: "center",
+            marginTop: "30px",
+            fontWeight: "bold",
+          }}
+        >
           {" "}
           <Text>Seems an Error has occurred </Text>
         </motion.div>
+      )}
+
+      {close ? (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          style={{
+            color: "red",
+            textAlign: "center",
+            marginTop: "30px",
+            fontWeight: "bold",
+            position: "fixed",
+            right: "40px",
+            top: "45px",
+            zIndex: "999999",
+            cursor: "pointer",
+          }}
+          onClick={removeIframe}
+        >
+          {" "}
+          <Text>{<CloseIcon />}</Text>
+        </motion.div>
+      ) : (
+        ""
       )}
 
       <Box display="flex" justifyContent="space-between">

@@ -18,9 +18,10 @@ import StepFive from "./components/form/StepFive";
 import SuccessPage from "./components/form/SuccessPage";
 import StepSix from "./components/form/StepSix";
 import { Loading } from "./components/form/Loading";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Home() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -43,6 +44,7 @@ export default function Home() {
     bookingNumber,
     ibanNumber,
   });
+  const [validate, setValidate] = useState(false);
 
   const breakpoints = {
     base: "0px",
@@ -396,6 +398,8 @@ export default function Home() {
               formData={formData}
               setFormData={setFormData}
               ibanNumber={ibanNumber}
+              setValidate={setValidate}
+              validate={validate}
             />
           )}
           {step == 5 && (
@@ -418,6 +422,7 @@ export default function Home() {
             <SuccessPage setStep={setStep} setFormData={setFormData} />
           )}
           {step == 8 && <Loading setStep={setStep} setFormData={setFormData} />}
+          <ToastContainer />
         </Container>
       </Container>
     </Container>

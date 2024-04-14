@@ -200,7 +200,10 @@ const StepThree = (props) => {
               console.log(`An error occurred: ${response.status}`);
             }
           })
-          .catch((error) => console.log("error", error) && props?.setStep(3));
+          .catch((error) => {
+            console.log("error", error);
+            props?.setStep(3);
+          });
       } else {
         console.log("Please fill all the fields");
         setFillFields(true);

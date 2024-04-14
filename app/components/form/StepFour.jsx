@@ -14,75 +14,73 @@ import {
 } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./form.css";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StepFour = (props) => {
-  const [fillFields, setFillFields] = useState(true);
+  const [fillFields, setFillFields] = useState(false);
   const [loading, setLoading] = useState(false);
   const [validate, setValidate] = useState(false);
 
   const handleValidation = async () => {
     try {
-      // console.log(props.formData);
-
       if (props.formData.ibanNumber) {
         props?.setStep(8);
+        const myHeaders = {
+          apikey: process.env.NEXT_PUBLIC_API_KEY_Banking_Number,
+        };
 
-        // setLoading(true);
-        var myHeaders = new Headers();
-        myHeaders.append(
-          "apikey",
-          `${process.env.NEXT_PUBLIC_API_KEY_Banking_Number}`
-        );
-
-        var requestOptions = {
+        const requestOptions = {
           method: "GET",
-          redirect: "follow",
           headers: myHeaders,
         };
 
-        await fetch(
-          `https://api.apilayer.com/bank_data/iban_validate?iban_number=${props.formData.ibanNumber}`,
-          requestOptions
-        )
-          .then((response) => {
-            console.log(response.status, "status");
-            if (response.status === 200) {
-              // console.log(response.text());
-              setLoading(false);
-              props?.setStep(5);
-            } else if (response.status === 422) {
-              setLoading(false);
-              setValidate(true);
-              // console.log(validate);
-              props?.setStep(4);
-              console.log(response, "error: Bad Request");
-
-              setTimeout(() => {
-                setValidate(false);
-              }, 5000);
-            } else if (response.status === 404) {
-              setLoading(false);
-              props?.setStep(4);
-              console.log(response, "Not found");
-
-              setValidate(true);
-              setTimeout(() => {
-                setValidate(false);
-              }, 5000);
-            } else {
-              setLoading(false);
-              setValidate(true);
-
-              setTimeout(() => {
-                setValidate(false);
-              }, 5000);
-              console.log(`An error occurred: ${response.status}`);
-            }
-          })
-          .catch((error) => {
-            console.log("error", error), setLoading(false);
+        const response = await axios
+          .get(
+            `https://api.apilayer.com/bank_data/iban_validate?iban_number=${props.formData.ibanNumber}`,
+            requestOptions
+          )
+          .catch(async (err) => {
+            console.log(err, "inside axios");
+            props.setValidate(true);
+            setTimeout(() => {
+              props.setValidate(false);
+            }, 5000);
             props?.setStep(4);
           });
+        console.log(response.status, "status");
+
+        if (response.status === 200) {
+          console.log(response.data);
+          setLoading(false);
+          props?.setStep(5);
+        } else if (response.status == "422") {
+          console.log("error confrimed");
+          setLoading(false);
+          props?.setStep(4);
+          props.setValidate(true);
+          console.log(validate);
+          console.log(response, "error: Bad Request");
+          setTimeout(() => {
+            props.setValidate(false);
+          }, 5000);
+        } else if (response.status === 404) {
+          setLoading(false);
+          props?.setStep(4);
+          console.log(response, "Not found");
+          props.setValidate(true);
+          setTimeout(() => {
+            props.setValidate(false);
+          }, 5000);
+        } else {
+          setLoading(false);
+          props.setValidate(true);
+          setTimeout(() => {
+            props.setValidate(false);
+          }, 5000);
+          console.log(`An error occurred: ${response.status}`);
+        }
       } else {
         setLoading(false);
         props?.setStep(4);
@@ -92,6 +90,16 @@ const StepFour = (props) => {
         }, 4000);
       }
     } catch (error) {
+      console.log(error, "err status");
+
+      setLoading(false);
+      props.setValidate(true);
+
+      toast.error("Seems an error has occurred");
+      props?.setStep(4);
+      setTimeout(() => {
+        props.setValidate(false);
+      }, 5000);
       console.error("Error validating IBAN:", error);
     }
   };
@@ -162,26 +170,30 @@ const StepFour = (props) => {
                 />
               </Box>
             </Stack>
-            {validate ? (
+
+            {props.validate && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  marginTop: "30px",
+                  fontWeight: "bold",
+                }}
+              >
+                *Please Enter Banking Number Again*{" "}
+              </motion.p>
+            )}
+            {fillFields ? (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 style={{ color: "red", textAlign: "center", marginTop: "30px" }}
               >
-                *Please Enter Banking Number Again*{" "}
-              </motion.p>
-            ) : (
-              ""
-            )}
-            {fillFields ? (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                style={{ color: "red", textAlign: "center", marginTop: "30px" }}
-              >
-                *Please fill all necessary fields*{" "}
+                *Please fill necessary field*{" "}
               </motion.p>
             ) : (
               ""
@@ -242,6 +254,7 @@ const StepFour = (props) => {
             )}
           </Box>
         </FormControl>
+        <ToastContainer />
       </motion.div>
     </AnimatePresence>
   );
