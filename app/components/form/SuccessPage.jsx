@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Lottie from "react-lottie";
 import animationData from "./animationData.json"; // Import local JSON file
 import { usePathname } from "next/navigation";
-const SuccessPage = () => {
+const SuccessPage = (props) => {
   const defaultOptions = {
     loop: false,
     autoplay: true,
@@ -65,13 +65,21 @@ const SuccessPage = () => {
             Your information has been submitted successfully!
           </Text>
           {router == "/" ? (
-            ""
+            <Text
+              onClick={() => {
+                props.setStep(1);
+              }}
+              cursor="pointer"
+            >
+              Fill form again
+            </Text>
           ) : (
             <Link href="/">
               <Text
                 fontSize={{ base: "16px", lg: "18px", "2xl": "20px " }}
                 colorScheme="hsl(213, 96%, 18%)"
                 color="blue"
+                onClick={() => props.setStep(1)}
               >
                 Go back to home{" "}
               </Text>{" "}

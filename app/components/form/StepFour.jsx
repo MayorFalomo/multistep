@@ -95,7 +95,6 @@ const StepFour = (props) => {
       setLoading(false);
       props.setValidate(true);
 
-      toast.error("Seems an error has occurred");
       props?.setStep(4);
       setTimeout(() => {
         props.setValidate(false);
@@ -166,7 +165,8 @@ const StepFour = (props) => {
                       ibanNumber: e.target.value.trim().replace(/\s/g, ""),
                     })
                   }
-                  defaultValue={props.ibanNumber}
+                  value={props.formData.ibanNumber}
+                  // defaultValue={props.ibanNumber}
                 />
               </Box>
             </Stack>
@@ -254,7 +254,6 @@ const StepFour = (props) => {
             )}
           </Box>
         </FormControl>
-        <ToastContainer />
       </motion.div>
     </AnimatePresence>
   );

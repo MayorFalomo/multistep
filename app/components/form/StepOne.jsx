@@ -145,7 +145,7 @@ const StepOne = (props) => {
                     flightNumber: e.target.value.trim().replace(/\s/g, ""),
                   });
                 }}
-                defaultValue={props.flightNumber}
+                value={props.formData.flightNumber}
               />
             </Box>
 

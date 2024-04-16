@@ -49,6 +49,7 @@ const StepThree = (props) => {
   const [loading, setLoading] = useState(false);
   const [fillFields, setFillFields] = useState(false);
   const [phone, setPhone] = useState("");
+  const [emailError, setEmailError] = useState(false);
   const containerStyle = {
     width: "100%",
     height: "400px",
@@ -147,12 +148,14 @@ const StepThree = (props) => {
   const isValid = isPhoneValid(props.formData.telephone);
 
   const submitForm = async () => {
-    // console.log(props.formData, "prev formdata");
+    console.log(props.formData, "prev formdata");
     try {
       setValidate(true);
       setTimeout(() => {
         setValidate(false);
       }, 10000);
+
+      console.log(isValid, "Isvalid");
 
       if (
         props.formData.email &&
@@ -180,6 +183,7 @@ const StepThree = (props) => {
           requestOptions
         )
           .then((response) => {
+            console.log(response);
             if (response.status === 200) {
               setLoading(false);
               props?.setStep(4);
@@ -200,6 +204,7 @@ const StepThree = (props) => {
           })
           .catch((error) => {
             console.log("error", error);
+            setEmailError(true);
             props?.setStep(3);
           });
       } else {
@@ -296,7 +301,7 @@ const StepThree = (props) => {
                       name: e.target.value,
                     });
                   }}
-                  defaultValue={props.formData.name}
+                  value={props.formData.name}
                 />
               </Box>
 
@@ -329,7 +334,8 @@ const StepThree = (props) => {
                       surname: e.target.value,
                     });
                   }}
-                  defaultValue={props.surname}
+                  value={props.formData.surname}
+                  // defaultValue={props.surname}
                 />
               </Box>
 
@@ -369,8 +375,8 @@ const StepThree = (props) => {
                           address: e.target.value,
                         });
                     }}
+                    value={props.formData.address}
                     // defaultValue={props.formData.address}
-                    defaultValue={props.formData.address}
                   />
                   <InputRightAddon p="0">
                     <IconButton
@@ -499,6 +505,7 @@ const StepThree = (props) => {
                       email: e.target.value,
                     });
                   }}
+                  value={props.formData.email}
                 />
               </Box>
               {validate ? (
