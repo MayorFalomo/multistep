@@ -27,60 +27,62 @@ const StepFour = (props) => {
     try {
       if (props.formData.ibanNumber) {
         props?.setStep(8);
-        const myHeaders = {
-          apikey: process.env.NEXT_PUBLIC_API_KEY_Banking_Number,
-        };
+        props?.setStep(5);
 
-        const requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-        };
+        // const myHeaders = {
+        //   apikey: process.env.NEXT_PUBLIC_API_KEY_Banking_Number,
+        // };
 
-        const response = await axios
-          .get(
-            `https://api.apilayer.com/bank_data/iban_validate?iban_number=${props.formData.ibanNumber}`,
-            requestOptions
-          )
-          .catch(async (err) => {
-            console.log(err, "inside axios");
-            props.setValidate(true);
-            setTimeout(() => {
-              props.setValidate(false);
-            }, 5000);
-            props?.setStep(4);
-          });
-        console.log(response.status, "status");
+        // const requestOptions = {
+        //   method: "GET",
+        //   headers: myHeaders,
+        // };
 
-        if (response.status === 200) {
-          console.log(response.data);
-          setLoading(false);
-          props?.setStep(5);
-        } else if (response.status == "422") {
-          console.log("error confrimed");
-          setLoading(false);
-          props?.setStep(4);
-          props.setValidate(true);
-          console.log(validate);
-          console.log(response, "error: Bad Request");
-          setTimeout(() => {
-            props.setValidate(false);
-          }, 5000);
-        } else if (response.status === 404) {
-          setLoading(false);
-          props?.setStep(4);
-          console.log(response, "Not found");
-          props.setValidate(true);
-          setTimeout(() => {
-            props.setValidate(false);
-          }, 5000);
-        } else {
-          setLoading(false);
-          props.setValidate(true);
-          setTimeout(() => {
-            props.setValidate(false);
-          }, 5000);
-          console.log(`An error occurred: ${response.status}`);
-        }
+        // const response = await axios
+        //   .get(
+        //     `https://api.apilayer.com/bank_data/iban_validate?iban_number=${props.formData.ibanNumber}`,
+        //     requestOptions
+        //   )
+        //   .catch(async (err) => {
+        //     console.log(err, "inside axios");
+        //     props.setValidate(true);
+        //     setTimeout(() => {
+        //       props.setValidate(false);
+        //     }, 5000);
+        //     props?.setStep(4);
+        //   });
+        // console.log(response.status, "status");
+
+        // if (response.status === 200) {
+        //   console.log(response.data);
+        //   setLoading(false);
+        //   props?.setStep(5);
+        // } else if (response.status == "422") {
+        //   console.log("error confrimed");
+        //   setLoading(false);
+        //   props?.setStep(4);
+        //   props.setValidate(true);
+        //   console.log(validate);
+        //   console.log(response, "error: Bad Request");
+        //   setTimeout(() => {
+        //     props.setValidate(false);
+        //   }, 5000);
+        // } else if (response.status === 404) {
+        //   setLoading(false);
+        //   props?.setStep(4);
+        //   console.log(response, "Not found");
+        //   props.setValidate(true);
+        //   setTimeout(() => {
+        //     props.setValidate(false);
+        //   }, 5000);
+        // } else {
+        //   setLoading(false);
+        //   props.setValidate(true);
+        //   setTimeout(() => {
+        //     props.setValidate(false);
+        //   }, 5000);
+        //   console.log(`An error occurred: ${response.status}`);
+        // }
       } else {
         setLoading(false);
         props?.setStep(4);

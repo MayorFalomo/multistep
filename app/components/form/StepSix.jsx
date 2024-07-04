@@ -23,50 +23,51 @@ const StepSix = (props) => {
   const submitForm = async () => {
     try {
       setLoading(true);
-      var formData = new FormData();
-      formData.append("flight_number", props.formData.flightNumber);
-      formData.append("booking_number", props.formData.bookingNumber);
-      formData.append("name", props.formData.name);
-      formData.append("surname", props.formData.surname);
-      formData.append("email", props.formData.email);
-      formData.append("date", props.formData.date);
-      formData.append("address", props.formData.address);
-      formData.append("phone", props.formData.telephone);
-      formData.append("address", props.formData.address);
+      props.setStep(7);
+      // var formData = new FormData();
+      // formData.append("flight_number", props.formData.flightNumber);
+      // formData.append("booking_number", props.formData.bookingNumber);
+      // formData.append("name", props.formData.name);
+      // formData.append("surname", props.formData.surname);
+      // formData.append("email", props.formData.email);
+      // formData.append("date", props.formData.date);
+      // formData.append("address", props.formData.address);
+      // formData.append("phone", props.formData.telephone);
+      // formData.append("address", props.formData.address);
 
       //   for (var pair of formData.entries()) {
       //     console.log(pair[0] + ", " + pair[1]);
       //   }
       //   console.log(...formData, "my formData ");
 
-      await axios({
-        method: "POST",
-        url: "https://be.flightapp.bloombyte.dev/submit-flight/",
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-        .then((response) => {
-          if (response.status == 200) {
-            setLoading(false);
-            props.setStep(7);
-          } else {
-            console.log("Failed Error");
-            setLoading(false);
-            setTimeout(() => {
-              set;
-            }, 5000);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          setErrMessage(true);
-          setTimeout(() => {
-            setErrMessage(false);
-          }, 4000);
-          setLoading(false);
-        });
+      // await axios({
+      //   method: "POST",
+      //   url: "https://be.flightapp.bloombyte.dev/submit-flight/",
+      //   data: formData,
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // })
+      //   .then((response) => {
+      //     if (response.status == 200) {
+      //       setLoading(false);
+      //       props.setStep(7);
+      //     } else {
+      //       console.log("Failed Error");
+      //       setLoading(false);
+      //       setTimeout(() => {
+      //         set;
+      //       }, 5000);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     setErrMessage(true);
+      //     setTimeout(() => {
+      //       setErrMessage(false);
+      //     }, 4000);
+      //     setLoading(false);
+      //   });
     } catch (error) {
       console.log(error);
       setErrMessage(true);

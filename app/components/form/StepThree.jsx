@@ -148,14 +148,14 @@ const StepThree = (props) => {
   const isValid = isPhoneValid(props.formData.telephone);
 
   const submitForm = async () => {
-    console.log(props.formData, "prev formdata");
+    // console.log(props.formData, "prev formdata");
     try {
       setValidate(true);
       setTimeout(() => {
         setValidate(false);
       }, 10000);
 
-      console.log(isValid, "Isvalid");
+      // console.log(isValid, "Isvalid");
 
       if (
         props.formData.email &&
@@ -166,47 +166,48 @@ const StepThree = (props) => {
         isValid
       ) {
         props?.setStep(8);
-        var myHeaders = new Headers();
-        myHeaders.append(
-          "apikey",
-          `${process.env.NEXT_PUBLIC_API_KEY_Verify_Email}`
-        );
+        props?.setStep(4);
+        // var myHeaders = new Headers();
+        // myHeaders.append(
+        //   "apikey",
+        //   `${process.env.NEXT_PUBLIC_API_KEY_Verify_Email}`
+        // );
 
-        var requestOptions = {
-          method: "GET",
-          redirect: "follow",
-          headers: myHeaders,
-        };
+        // var requestOptions = {
+        //   method: "GET",
+        //   redirect: "follow",
+        //   headers: myHeaders,
+        // };
 
-        await fetch(
-          `https://api.apilayer.com/email_verification/${props.formData.email}`,
-          requestOptions
-        )
-          .then((response) => {
-            console.log(response);
-            if (response.status === 200) {
-              setLoading(false);
-              props?.setStep(4);
-            } else if (response.status === 401) {
-              setLoading(false);
-              props?.setStep(3);
-              console.log("Unauthorized - Invalid authentication credentials");
-            } else if (response.status === 400) {
-              setLoading(false);
-              props?.setStep(3);
-              console.log("Bad request - Invalid email format");
-            } else {
-              setLoading(false);
-              props?.setStep(3);
+        // await fetch(
+        //   `https://api.apilayer.com/email_verification/${props.formData.email}`,
+        //   requestOptions
+        // )
+        //   .then((response) => {
+        //     console.log(response);
+        //     if (response.status === 200) {
+        //       setLoading(false);
+        //       props?.setStep(4);
+        //     } else if (response.status === 401) {
+        //       setLoading(false);
+        //       props?.setStep(3);
+        //       console.log("Unauthorized - Invalid authentication credentials");
+        //     } else if (response.status === 400) {
+        //       setLoading(false);
+        //       props?.setStep(3);
+        //       console.log("Bad request - Invalid email format");
+        //     } else {
+        //       setLoading(false);
+        //       props?.setStep(3);
 
-              console.log(`An error occurred: ${response.status}`);
-            }
-          })
-          .catch((error) => {
-            console.log("error", error);
-            setEmailError(true);
-            props?.setStep(3);
-          });
+        //       console.log(`An error occurred: ${response.status}`);
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log("error", error);
+        //     setEmailError(true);
+        //     props?.setStep(3);
+        //   });
       } else {
         console.log("Please fill all the fields");
         setFillFields(true);

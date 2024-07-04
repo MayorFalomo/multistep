@@ -31,37 +31,38 @@ const StepFive = (props) => {
   const getSignature = async () => {
     setClose(true);
     try {
-      var formData = new FormData();
-      formData.append("flight_number", props.formData.flightNumber);
-      formData.append("booking_number", props.formData.bookingNumber);
-      formData.append("name", props.formData.name);
-      formData.append("surname", props.formData.surname);
-      formData.append("email", props.formData.email);
-      formData.append("date", props.formData.date);
-      formData.append("address", props.formData.address);
-      formData.append("phone", props.formData.telephone);
-      formData.append("address", props.formData.address);
+      props.setStep(6);
+      // var formData = new FormData();
+      // formData.append("flight_number", props.formData.flightNumber);
+      // formData.append("booking_number", props.formData.bookingNumber);
+      // formData.append("name", props.formData.name);
+      // formData.append("surname", props.formData.surname);
+      // formData.append("email", props.formData.email);
+      // formData.append("date", props.formData.date);
+      // formData.append("address", props.formData.address);
+      // formData.append("phone", props.formData.telephone);
+      // formData.append("address", props.formData.address);
 
-      const baseUrl = "https://be.flightapp.bloombyte.dev";
-      await axios({
-        method: "POST",
-        url: `${baseUrl}/create-signature/`,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-        .then((res) => {
-          setSignUrl(res.data.url);
-          setConfirmedSignature(false);
-        })
-        .catch((err) => {
-          console.log(err), setConfirmedSignature(true);
-          setSignUrl(true);
-          // setTimeout(() => {
-          //   setConfirmedSignature(false);
-          // }, 5000);
-        });
+      // const baseUrl = "https://be.flightapp.bloombyte.dev";
+      // await axios({
+      //   method: "POST",
+      //   url: `${baseUrl}/create-signature/`,
+      //   data: formData,
+      //   headers: {
+      //     "Content-Type": "multipart/form-data",
+      //   },
+      // })
+      //   .then((res) => {
+      //     setSignUrl(res.data.url);
+      //     setConfirmedSignature(false);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err), setConfirmedSignature(true);
+      //     setSignUrl(true);
+      //     // setTimeout(() => {
+      //     //   setConfirmedSignature(false);
+      //     // }, 5000);
+      //   });
     } catch (err) {
       console.log(err);
       setConfirmedSignature(true);
@@ -80,9 +81,6 @@ const StepFive = (props) => {
     //!Function to listen for events and run actions accordingly
     const messageHandler = (e) => {
       if (e.data.event === "completed") {
-        // console.log(e.data.event, "event");
-        // console.log(e.data.documentId, "documentId");
-        // console.log(e.data.signatureId, "signatureId");
         props.setStep(6);
         document.body.removeChild(iframe);
         window.removeEventListener("message", messageHandler); //Then Remove the event listener

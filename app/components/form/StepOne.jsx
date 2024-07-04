@@ -20,48 +20,55 @@ const StepOne = (props) => {
   const [fillFields, setFillFields] = useState(false);
 
   const submitForm = async () => {
-    const accessKey = `${process.env.NEXT_PUBLIC_API_KEY_Flight_Number}`;
-    const url = `https://api.aviationstack.com/v1/flights?access_key=${accessKey}&flight_number=${props.formData.flightNumber}`;
+    // const accessKey = `${process.env.NEXT_PUBLIC_API_KEY_Flight_Number}`;
+    // const url = `https://api.aviationstack.com/v1/flights?access_key=${accessKey}&flight_number=${props.formData.flightNumber}`;
+
     setValidate(true);
     setTimeout(() => {
       setValidate(false);
     }, 7000);
+    // setLoading(true);
+    const formattedDates = moment(props.formData.date).format("YYYY / M / D");
 
-    if (props.formData.flightNumber && props.formData.date) {
-      // setLoading(true);
-      props?.setStep(8);
+    if (props.formData.flightNumber && formattedDates) {
+      console.log(formattedDates, "formattedDates");
 
       try {
-        await fetch(url)
-          .then((response) => {
-            if (response.status === 200) {
-              setLoading(false);
-              props?.setStep(2);
-            } else if (response.status === 401) {
-              setLoading(false);
-              props?.setStep(1);
-              console.log(response, "The given user account is inactive");
-            } else if (response.status === 404) {
-              setLoading(false);
-              props?.setStep(1);
-              console.log(response, "User Not found");
-            } else if (response.status === 500) {
-              setLoading(false);
-              props?.setStep(1);
-              setServerError(true);
-              setTimeout(() => {
-                setServerError(false);
-              }, 5000);
-              console.log(response, "Server Error occured");
-            } else {
-              setLoading(false);
-              props?.setStep(1);
-              console.log(`An error occurred: ${response.status}`);
-            }
-          })
-          .catch((error) => {
-            console.log("error", error), setLoading(false), props?.setStep(1);
-          });
+        setLoading(false);
+        // setLoading(true);
+        props?.setStep(8);
+        props?.setStep(2);
+
+        // await fetch(url)
+        //   .then((response) => {
+        //     if (response.status === 200) {
+        //       setLoading(false);
+        //       props?.setStep(2);
+        //     } else if (response.status === 401) {
+        //       setLoading(false);
+        //       props?.setStep(1);
+        //       console.log(response, "The given user account is inactive");
+        //     } else if (response.status === 404) {
+        //       setLoading(false);
+        //       props?.setStep(1);
+        //       console.log(response, "User Not found");
+        //     } else if (response.status === 500) {
+        //       setLoading(false);
+        //       props?.setStep(1);
+        //       setServerError(true);
+        //       setTimeout(() => {
+        //         setServerError(false);
+        //       }, 5000);
+        //       console.log(response, "Server Error occured");
+        //     } else {
+        //       setLoading(false);
+        //       props?.setStep(1);
+        //       console.log(`An error occurred: ${response.status}`);
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log("error", error), setLoading(false), props?.setStep(1);
+        //   });
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -169,14 +176,15 @@ const StepOne = (props) => {
                   color: "gray.500",
                   fontFamily: "Ubuntu",
                 }}
-                type="date"
+                type="datetime-local"
                 max={new Date().toISOString().split("T")[0]}
                 onChange={(e) => {
                   props.setFormData({
                     ...props.formData,
-                    date: moment(e.target.value).format("L"),
+                    date: e.target.value,
                   });
                 }}
+                value={props.formData.date}
               />
             </Box>
 
